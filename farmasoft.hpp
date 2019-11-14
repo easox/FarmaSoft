@@ -52,3 +52,12 @@ class CTransport{
 
 
 };
+
+
+class CTest {
+
+private:
+	int m_prueba;
+
+
+};
