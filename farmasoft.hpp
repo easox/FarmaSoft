@@ -21,7 +21,7 @@ class CVehiculo{
     string get_matricula(void){return this->m_s_matricula;};
 
     CVehiculo();
-    CVehiculo(string matricula,int capacidad, CPos posicion);
+    CVehiculo(string matriculas,int capacidad, CPos posicion);
     ~CVehiculo(){};
 
 };
