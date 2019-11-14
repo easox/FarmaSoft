@@ -52,3 +52,8 @@ class CTransport{
 
 
 };
+
+class CTest{
+  private:
+  int hello;
+};
