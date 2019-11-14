@@ -21,7 +21,7 @@ class CVehiculo{
     string get_matricula(void){return this->m_s_matricula;};
 
     CVehiculo();
-    CVehiculo(string matriculas,int capacidad, CPos posicion);
+    CVehiculo(string matricula,int capacidad, CPos posicion);
     ~CVehiculo(){};
 
 };
@@ -47,7 +47,7 @@ class CTransport{
       CDateTime m_f_fecha;
       float m_f_distancia;
     public:
-      
+
       
 
 
