@@ -1,6 +1,7 @@
 #pragma once
 #include <time.h>
 #include <iostream>
+#include "CDateTime.hpp"
 using namespace std;
 
 class CVehiculo{
@@ -35,10 +36,19 @@ class CPos{
     CPos();
     CPos(float x,float y);
     ~CPos();
+    float get_x();
+    float get_y();
+};
 
-    
+class CTransport{
+
+    private:
+      int m_i_id_transporte;
+      CDateTime m_f_fecha;
+      float m_f_distancia;
+    public:
+      
+      
 
 
 };
-
-class CTransport
