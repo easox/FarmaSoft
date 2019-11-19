@@ -62,7 +62,7 @@ private:
 
 public:
 	CCompra();
-	CCompra(int id_compra,list<CMedicamentos> medicamentos,CProveedor proveedor);
+	CCompra(int id_compra, list<CMedicamentos> medicamentos, CProveedor proveedor) { m_i_id_compra = id_compra;m_medicamentos };
 	~CCompra();
 	int get_id(void) { return this->m_i_ID_Compra;}
 	CProveedor get_proveedor(void){return *(this->m_proveedor) }
@@ -72,24 +72,12 @@ public:
 
 
 
-<<<<<<< HEAD
-
-class CTest {
-
-private:
-	int m_prueba;
 
 
-<<<<<<< HEAD
-=======
-class CTest{
-  private:
-  int hello;
->>>>>>> 2471cfc8703da46ea2d01fd569e2223530c56c29
+class CTest 
+	private:
+		int m_prueba;
 };
-=======
-};
-
 
 
 
@@ -114,6 +102,3 @@ public:
 
 	~CProveedor(void);
 };
-
-
->>>>>>> 5c4d0b3016aa6353f94cb8a7669215b4b3df441f
