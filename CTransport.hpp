@@ -5,6 +5,7 @@
 #include "CDateTime.hpp"
 #include "CMedicamento.hpp"
 #include <string>
+#include "CFarmacia.hpp"
 using namespace std;
 
 class CTransport{
@@ -24,7 +25,7 @@ class CTransport{
                 m_i_idtransporte=0;
                 m_fecha=0;
                 m_f_distancia=0;
-                m_medicamentos={};
+                m_medicamentos.clear();
                 m_farmacia_origen=NULL;
                 m_farmacia_destino=NULL;
                 executed=0;

@@ -2,6 +2,8 @@
 #include "CDateTime.hpp"
 #include <time.h>
 
+using namespace std;
+
 int CDateTime::getYear(){
   tm* tim=localtime(&(this->time));
   return tim->tm_year;
