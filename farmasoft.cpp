@@ -1,6 +1,8 @@
 #include "farmasoft.hpp"
 using namespace std;
 
+//Clase CProveedor.cpp
+
 CProveedor::CProveedor(void) {
 	this->m_i_id_proveedor = 0;
 	this->m_s_nombre = "Miguel";
@@ -29,5 +31,37 @@ istream& operator>>(istream& i, CProveedor& proveedor) {
 
 CProveedor::~CProveedor(void) {
 	cout << "CProveedor has been deleted with = " << *this << endl;
+}
+
+
+
+//Clase CMedicamento.cpp
+
+CMedicamento::CMedicamento(void) {
+	this->m_i_cn = 0;
+
+}
+CMedicamento::CMedicamento(const CMedicamento& medicamento) {
+	this->m_i_cn = medicamento.m_i_cn;
+	
+}
+CMedicamento::CMedicamento(int m_i_cn) {
+	this->m_i_cn = m_i_cn;
+}
+
+ostream& operator<<(std::ostream& o, const CMedicamento& medicamento) {
+	o << "(" << medicamento.m_i_cn <<")";
+	return o;
+}
+
+
+istream& operator>>(istream& i, CMedicamento& medicamento) {
+	char mensaje[20];
+	i >> mensaje >> medicamento.m_i_cn >> mensaje;
+	return i;
+}
+
+CMedicamento::~CMedicamento(void) {
+	cout << "CMedicamento has been deleted with = " << *this << endl;
 }
 
