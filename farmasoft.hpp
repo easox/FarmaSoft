@@ -43,21 +43,24 @@ class CPos{
 class CTransport{
 
     private:
-      int m_i_id_transporte;
-      CDateTime m_f_fecha;
+      int m_i_idtransporte;
+      CDateTime m_dt_fecha;
       float m_f_distancia;
+
     public:
-
-      
+      CTransport(){
+                m_i_idtransporte=0;
+                m_dt_fecha=0;
+                m_f_distancia=0;
+      };
+      CTransport(int id,CDateTime fecha, float dist){
+                m_i_idtransporte=id;
+                m_dt_fecha=fecha;
+                m_f_distancia=dist;
+      };
+      ~CTransport(){};
+            
 
 
 };
 
-
-class CTest {
-
-private:
-	int m_prueba;
-
-
-};
