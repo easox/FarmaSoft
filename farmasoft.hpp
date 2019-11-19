@@ -35,7 +35,7 @@ class CPos{
  
   public:
     CPos();
-    CPos(float m_f_x,float m_f_y);
+    CPos(float x,float y);
     ~CPos();
     float get_x();
     float get_y();
@@ -54,7 +54,21 @@ class CTransport{
 
 };
 
+class CCompra {
+private:
+	int m_i_id_compra;
+	list<CMedicamento*> m_medicamentos;
+	CProveedor* m_proveedor;
 
+public:
+	CCompra();
+	CCompra(int id_compra,list<CMedicamentos> medicamentos,CProveedor proveedor);
+	~CCompra();
+	int get_id(void) { return this->m_i_ID_Compra;}
+	CProveedor get_proveedor(void){return *(this->m_proveedor) }
+	string get_nombre_proveedor(void) { return *(this->m_proveedores).get_name();) }
+	CMedicamento get_medicamento(void) { return *(this->m_medicamentos;) }
+};
 
 
 
