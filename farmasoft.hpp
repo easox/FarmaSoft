@@ -29,12 +29,12 @@ class CVehiculo{
 
 class CPos{
   private:
-    float x;
-    float y;
+    float m_f_x;
+    float m_f_y;
  
   public:
     CPos();
-    CPos(float x,float y);
+    CPos(float m_f_x,float m_f_y);
     ~CPos();
     float get_x();
     float get_y();
@@ -54,10 +54,20 @@ class CTransport{
 };
 
 
+
+
+
+<<<<<<< HEAD
+
 class CTest {
 
 private:
 	int m_prueba;
 
 
+=======
+class CTest{
+  private:
+  int hello;
+>>>>>>> 2471cfc8703da46ea2d01fd569e2223530c56c29
 };
