@@ -2,6 +2,7 @@
 #include <time.h>
 #include <iostream>
 #include "CDateTime.hpp"
+#include <string>
 using namespace std;
 
 class CVehiculo{
@@ -65,9 +66,40 @@ private:
 	int m_prueba;
 
 
+<<<<<<< HEAD
 =======
 class CTest{
   private:
   int hello;
 >>>>>>> 2471cfc8703da46ea2d01fd569e2223530c56c29
 };
+=======
+};
+
+
+
+
+
+//Clase CProveedor
+//CProveedor.h
+
+
+
+class CProveedor
+{
+private:
+	int m_i_id_proveedor;
+	std::string m_s_nombre;
+public:
+	CProveedor(void);
+	CProveedor(const CProveedor& proveedor);
+	CProveedor(int m_i_id_proveedor,std::string m_s_nombre);
+	
+	friend std::ostream& operator<<(std::ostream& os, const CProveedor& dateTime);
+	friend std::istream& operator>>(std::istream& i, CProveedor& proveedor);
+
+	~CProveedor(void);
+};
+
+
+>>>>>>> 5c4d0b3016aa6353f94cb8a7669215b4b3df441f
