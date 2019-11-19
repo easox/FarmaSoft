@@ -2,6 +2,7 @@
 #include <time.h>
 #include <iostream>
 #include "CDateTime.hpp"
+#include <string>
 using namespace std;
 
 class CVehiculo{
@@ -29,12 +30,12 @@ class CVehiculo{
 
 class CPos{
   private:
-    float x;
-    float y;
+    float m_f_x;
+    float m_f_y;
  
   public:
     CPos();
-    CPos(float x,float y);
+    CPos(float m_f_x,float m_f_y);
     ~CPos();
     float get_x();
     float get_y();
@@ -63,4 +64,30 @@ class CTransport{
 
 
 };
+
+
+
+
+
+//Clase CProveedor
+//CProveedor.h
+
+
+
+class CProveedor
+{
+private:
+	int m_i_id_proveedor;
+	std::string m_s_nombre;
+public:
+	CProveedor(void);
+	CProveedor(const CProveedor& proveedor);
+	CProveedor(int m_i_id_proveedor,std::string m_s_nombre);
+	
+	friend std::ostream& operator<<(std::ostream& os, const CProveedor& dateTime);
+	friend std::istream& operator>>(std::istream& i, CProveedor& proveedor);
+
+	~CProveedor(void);
+};
+
 
