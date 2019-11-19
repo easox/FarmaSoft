@@ -84,7 +84,7 @@ public:
 	CProveedor(const CProveedor& proveedor);
 	CProveedor(int m_i_id_proveedor,std::string m_s_nombre);
 	
-	friend std::ostream& operator<<(std::ostream& os, const CProveedor& dateTime);
+	friend std::ostream& operator<<(std::ostream& os, const CProveedor& proveedor);
 	friend std::istream& operator>>(std::istream& i, CProveedor& proveedor);
 
 	~CProveedor(void);
