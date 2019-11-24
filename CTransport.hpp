@@ -4,6 +4,7 @@
 #include <list>
 #include "CDateTime.hpp"
 #include "CMedicamento.hpp"
+#include "CVehiculo.hpp"
 #include <string>
 #include "CFarmacia.hpp"
 using namespace std;
@@ -49,7 +50,9 @@ class CTransport{
 
         while(!m_medicamentos.empty()){
             it=m_medicamentos.begin();
+            m_medicamentos.pop_front();
             delete *it;
+            cout<<"deleted list item"<<endl;
         }
       };
       int exec_transport(void);//TODO:

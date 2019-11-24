@@ -19,4 +19,7 @@ public:
 	friend std::istream& operator>>(std::istream& i, CProveedor& proveedor);
 
 	~CProveedor(void);
+
+	float get_price(CMedicamento* med); //indica el precio de un medicamento en su inventario, devuelve 99999 si no lo tiene
+	int med_available(CMedicamento* med); // indica si tiene ese medicamento en su inventario
 };

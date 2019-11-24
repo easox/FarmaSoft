@@ -6,6 +6,7 @@
 
 #include "CMedicamento.hpp"
 #include "CDateTime.hpp"
+#include "CMed.hpp"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ class CTransaccion{
   public:
     void add_medicamento(CMedicamento* nuevo_med);
     virtual void make_transac(void)=0;
-    CTransaccion(){m_i_id=NULL; m_medicamentos.clear();};
+    CTransaccion(){m_i_id=-1; m_medicamentos.clear();};
     CTransaccion(int id, list<CMed*> medicamento){m_i_id=id;m_medicamentos=medicamento;};
     ~CTransaccion(){
       list<CMed*>::iterator it;
@@ -34,33 +35,6 @@ class CTransaccion{
 };
 
 
-class CMed{
-
-  private:
-    int m_i_id;
-    CMedicamento* m_medicamento;
-    float m_f_price;
-    int m_i_cantidad;
-    
-    
-  public:
-
-};
-
-class CVenta: public CTransaccion{
-
-  public:
-    using CTransaccion::CTransaccion;
-    void make_transac(void);
-    
 
 
 
-};
-
-class CCompra: public CTransaccion{
-  public:
-    using CTransaccion::CTransaccion;
-    void make_transac(void);
-
-}
