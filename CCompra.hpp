@@ -45,10 +45,11 @@ class CCompra {
 						if((*it_meds)->get_price()>(*it_prov)->get_price((*it_meds)->get_med())){
 
 							(*it_meds)->update_price((*it_prov)->get_price((*it_meds)->get_med())); //update price
-							proveedores.push_back(*it_prov); //add provedoor to list
+							(*it_meds)->update_proveedor(*it_prov);//update proveedor
+							
 
-						}else{ //SI nadie vende el medicamento
-							proveedores.push_back(NULL);	
+						}else{
+							
 						}
 						
 					}

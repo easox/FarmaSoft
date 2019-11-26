@@ -6,11 +6,11 @@
 
 #include "CMedicamento.hpp"
 
-class CMed{
+class CMedC{
 
   private:
-    int m_i_id;
     CMedicamento* m_medicamento;
+    CProveedor* m_proveedor;
     float m_f_price;
     int m_i_cantidad;
     
@@ -21,5 +21,6 @@ class CMed{
     CMedicamento* get_med(void){return m_medicamento;};
     float get_price(void){return m_f_price;};
     void update_price(float price){m_f_price=price;};
+    void update_proveedor(CProveedor* proveedor){m_proveedor=proveedor;};
 
 };
