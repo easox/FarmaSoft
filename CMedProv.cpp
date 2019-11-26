@@ -1,4 +1,4 @@
-#include "CMedProv.h"
+#include "CMedProv.hpp"
 using namespace std;
 
 CMedProv::CMedProv(void) {
