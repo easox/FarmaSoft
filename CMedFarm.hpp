@@ -14,7 +14,10 @@ class CMedFarm{
     CMedicamento* m_medicamento;
 
   public:
-    
+    CMedFarm(int cantida,int minima, CMedicamento* medicamento);
+    int get_cantidad(void);//TODO:
+    int get_cantidad_min(void);//TODO:
+    CMedicamento* get_med(void);//TODO:
 
 
 

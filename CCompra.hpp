@@ -15,7 +15,6 @@ class CCompra {
 		int m_i_id_compra;
 		CDateTime* m_fecha;
 		list<CMedCompra*> m_meds;
-		list<CProveedor*> proveedores;
 		CFarmacia* m_farmacia;
 
 	public:
@@ -27,9 +26,13 @@ class CCompra {
 			m_meds.clear(); //limpiar la lista de meds comprados
 			m_fecha=new CDateTime(time(0)); //set fecha to now
 
-
-
 		 };
+		CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
+			m_farmacia=to_farmacia;
+			m_meds=med_needed;
+			m_fecha=new CDateTime(time(0)); //set fecha to now
+
+		}
 		~CCompra(){
 			free(m_fecha);
 			free(m_farmacia);
@@ -47,7 +50,6 @@ class CCompra {
 							(*it_meds)->update_price((*it_prov)->get_price((*it_meds)->get_med())); //update price
 							(*it_meds)->update_proveedor(*it_prov);//update proveedor
 							
-
 						}else{
 							
 						}
