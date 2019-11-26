@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <iostream>
 #include <string>
 	using namespace std;
@@ -15,6 +14,9 @@
 		CMedicamento(int m_i_cn);
 		~CMedicamento();
 
+		int get_cn(void);
+
 		friend std::ostream& operator<<(std::ostream& os, const CMedicamento& medicamento);
 		friend std::istream& operator>>(std::istream& i, CMedicamento& medicamento);
 	};
+
