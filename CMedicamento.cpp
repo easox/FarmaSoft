@@ -1,4 +1,4 @@
-#include "CMedicamento.h"
+#include "CMedicamento.hpp"
 
 CMedicamento::CMedicamento(void) {
 	this->m_i_cn = 0;
