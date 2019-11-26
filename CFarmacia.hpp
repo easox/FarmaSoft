@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include "CPos.hpp"
-#include "CMedicamento.hpp"
+#include "CMedFarm.hpp"
 
 
 using namespace std;
@@ -14,7 +14,7 @@ class CFarmacia{
     int m_i_id_farmacia;
     int m_i_capacidad_max;
     CPos* m_pos;
-    list<CMedicamento*> m_medicamentos;
+    list<CMedFarm*> m_medicamentos;
 
   public:
     CFarmacia(){
@@ -23,7 +23,7 @@ class CFarmacia{
       m_pos=NULL;
       m_medicamentos.clear();
     };
-    CFarmacia(int id, int capacidad, CPos* pos,list<CMedicamento*> medicamentos){
+    CFarmacia(int id, int capacidad, CPos* pos,list<CMedFarm*> medicamentos){
       m_i_id_farmacia=id;
       m_i_capacidad_max=capacidad;
       m_pos=pos;

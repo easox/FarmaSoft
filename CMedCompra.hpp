@@ -6,7 +6,7 @@
 
 #include "CMedicamento.hpp"
 
-class CMedC{
+class CMedCompra{
 
   private:
     CMedicamento* m_medicamento;
