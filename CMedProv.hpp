@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "CMedicamento.h"
+#include "CMedicamento.hpp"
 
 class CMedProv
 {
