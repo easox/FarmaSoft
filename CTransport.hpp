@@ -52,7 +52,6 @@ class CTransport{
             it=m_medicamentos.begin();
             m_medicamentos.pop_front();
             delete *it;
-            cout<<"deleted list item"<<endl;
         }
       };
       int exec_transport(void);//TODO:

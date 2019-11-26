@@ -1,11 +1,10 @@
 #pragma once
-
 #include <iostream>
 #include <string>
 #include <list>
 
 #include "CMedicamento.hpp"
-#include "CProvedor.hpp"
+#include "CProveedor.hpp"
 
 class CMedCompra{
 

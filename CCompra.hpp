@@ -7,8 +7,8 @@
 #include "CDateTime.hpp"
 #include "CPos.hpp"
 #include "CMedicamento.hpp"
-#include "CProvedor.hpp"
-#include "CMed.hpp"
+#include "CProveedor.hpp"
+#include "CMedFarm.hpp"
 #include "CFarmacia.hpp"
 class CCompra {
 	private:
@@ -45,9 +45,9 @@ class CCompra {
 			for(it_meds=m_meds.begin();it_meds != m_meds.end();++it_meds){
 				for(it_prov=global_proveedores.begin();it_prov != global_proveedores.end();++it_prov){
 					if((*it_prov)->med_available((*it_meds)->get_med())){
-						if((*it_meds)->get_price()>(*it_prov)->get_price((*it_meds)->get_med())){
+						if((*it_meds)->get_price()>(*it_prov)->get_precio((*it_meds)->get_med())){
 
-							(*it_meds)->update_price((*it_prov)->get_price((*it_meds)->get_med())); //update price
+							(*it_meds)->update_price((*it_prov)->get_precio((*it_meds)->get_med())); //update price
 							(*it_meds)->update_proveedor(*it_prov);//update proveedor
 							
 						}else{
