@@ -1,4 +1,4 @@
-#include "CProvedor.hpp"
+#include "CProveedor.h"
 using namespace std;
 
 //Clase CProveedor.cpp
@@ -23,9 +23,9 @@ ostream& operator<<(std::ostream& o, const CProveedor& proveedor) {
 }
 
 
-istream& operator>>(istream& i, CProveedor& proveedor) { 
+istream& operator>>(istream& i, CProveedor& proveedor) {
 	char mensaje[20];
-	i >> mensaje >> proveedor.m_i_id_proveedor >> mensaje >> proveedor.m_s_nombre >> mensaje; 
+	i >> mensaje >> proveedor.m_i_id_proveedor >> mensaje >> proveedor.m_s_nombre >> mensaje;
 	return i;
 }
 
@@ -33,6 +33,16 @@ CProveedor::~CProveedor(void) {
 	cout << "CProveedor has been deleted with = " << *this << endl;
 }
 
+float get_price( CMedProv* med) {
+	float price = 100000;
+	price = med->get_price();
+	return price;
+}
+int med_available(CMedProv* med) {
+	int existencia = 0;
+	existencia = med->get_existencia();
+	return existencia;
+}
 
 
 
