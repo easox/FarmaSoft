@@ -1,6 +1,5 @@
 
 #include "CDateTime.hpp"
-#include <time.h>
 
 using namespace std;
 
@@ -51,3 +50,34 @@ std::ostream& operator<<(std::ostream& os, const CDateTime& dateTime){
   os << dt;
   return os;
 }
+
+CDateTime::CDateTime(void){
+  this->time=0;
+  cout<<"Standard Creation"<<endl;
+};
+
+CDateTime::CDateTime(const CDateTime& dateTime){
+  this->time=dateTime.time;
+};
+
+CDateTime::CDateTime(time_t time){
+  this->time=time;
+};
+
+CDateTime::CDateTime(struct tm time){
+  this->time=mktime(&time);
+};
+CDateTime::CDateTime(int year, int month, int day, int hour, int minutes, int seconds){
+  struct tm* timeinfo;
+  time_t fech =0; // get the current datetime
+  timeinfo = localtime(&fech);
+  timeinfo->tm_mon = month; // month: January
+  timeinfo->tm_mday = day; // day of the month: 9
+  timeinfo->tm_year = year - 1900; // year 2015
+  timeinfo->tm_hour = hour; // hour 0
+  timeinfo->tm_min = minutes;
+  timeinfo->tm_sec = seconds;
+  this->time = mktime(timeinfo);
+};
+
+CDateTime::~CDateTime(void){};
