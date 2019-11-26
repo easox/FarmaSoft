@@ -13,7 +13,7 @@ class CProveedor
 private:
 	int m_i_id_proveedor;
 	std::string m_s_nombre;
-	list <CMedProv*> listamedicamentos;
+	list <CMedProv*> m_listmed;
 public:
 	CProveedor(void);
 	CProveedor(const CProveedor& proveedor);
@@ -24,6 +24,6 @@ public:
 
 	~CProveedor(void);
 
-	float get_precio(CMedProv* med); //indica el precio de un medicamento en su inventario, devuelve 99999 si no lo tiene
-	int med_available(CMedProv* med); // indica si tiene ese medicamento en su inventario. Devuelve 1 si hya y 0 si no
+	float get_price(CMedicamento* med); //indica el precio de un medicamento en su inventario, devuelve 99999 si no lo tiene
+	int med_available(CMedicamento* med); // indica si tiene ese medicamento en su inventario. Devuelve 1 si hay y 0 si no
 };
