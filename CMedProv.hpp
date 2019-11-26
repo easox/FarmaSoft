@@ -16,6 +16,9 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const CMedProv& medprov);
 	//friend std::istream& operator>>(std::istream& i, CMedProv& medprov);
 
+	CMedicamento* get_medicamento(void);
+	
+
 	float get_price();
 	int get_existencia();
 	~CMedProv(void);
@@ -23,3 +26,4 @@ public:
 
 	
 };
+

@@ -41,3 +41,8 @@ int CMedProv::get_existencia() {
 	}
 	return existencia;
 }
+
+CMedicamento* CMedProv::get_medicamento(void) {
+	return this->m_medicamento;
+
+}
