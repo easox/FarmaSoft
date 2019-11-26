@@ -4,8 +4,7 @@
 #include <string>
 	using namespace std;
 
-	class CMedicamento
-	{
+	class CMedicamento{
 	private:
 		int m_i_cn;
 	public:

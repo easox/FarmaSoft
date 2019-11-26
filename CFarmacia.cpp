@@ -44,12 +44,16 @@ CCompra* CFarmacia::determine_compra(){
       
 };
 
-CVenta* make_venta(int id_med,int catindad){
-  if(){
-    
-  }else{
+CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
+  list<CMedFarm*>::iterator it_meds;
 
+  for(it_meds=m_medicamentos.begin();it_meds != m_medicamentos.end();++it_meds){
+    if(id_med==(*it_meds)->get_med()->get_cn()){
+      CVenta* venta=new CVenta((*it_meds)->get_med(),cantidad_venta);
+
+      (*it_meds)->add_cantidad(-cantidad_venta);
+
+      return venta;
+    }
   }
-
-
 };

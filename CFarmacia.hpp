@@ -25,5 +25,5 @@ class CFarmacia{
     CFarmacia(int id, CPos* pos,list<CMedFarm*> medicamentos);
     ~CFarmacia();
     CCompra* determine_compra();//returns what it needs to buy(quantity) but not from whom or at what price.
-    CVenta* make_venta(int id_med,int catindad);
+    CVenta* make_venta(int id_med,int cantidad_venta);
 };

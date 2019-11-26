@@ -17,6 +17,7 @@ private:
 public:
 	CMedFarm(int cantidad, int cantidad_min, int cantidad_max, CMedicamento* medicamento);
 	CMedFarm(void);
+	void add_cantidad(int cantidad);
 	int get_cantidad(void);
 	int get_cantidad_min(void);
 	int get_cantidad_max(void);
