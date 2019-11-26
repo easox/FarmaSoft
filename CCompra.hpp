@@ -14,13 +14,13 @@ class CCompra {
 	private:
 		int m_i_id_compra;
 		CDateTime* m_fecha;
-		list<CMed*> m_meds;
+		list<CMedCompra*> m_meds;
 		list<CProveedor*> proveedores;
 		CFarmacia* m_farmacia;
 
 	public:
 		CCompra(){};
-		CCompra(int id_compra, CFarmacia* to_farmacia,list<CMed*>) {
+		CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
 			
 			m_i_id_compra=id_compra;
 			m_farmacia=to_farmacia;
@@ -36,7 +36,7 @@ class CCompra {
 		}
 
 		void find_proveedor(list<CProveedor*> global_proveedores){
-			list<CMed*>::iterator it_meds;
+			list<CMedCompra*>::iterator it_meds;
 			list<CProveedor*>::iterator it_prov;
 			
 			for(it_meds=m_meds.begin();it_meds != m_meds.end();++it_meds){
@@ -58,6 +58,7 @@ class CCompra {
 				}
 
 			}
+		}
 
 
 		int get_id(void) { return this->m_i_id_compra;}
