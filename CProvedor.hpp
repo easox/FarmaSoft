@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <string>
-#include "CMedicamento.h"
-#include "CMedProv.h"
+#include "CMedicamento.hpp"
+#include "CMedProv.hpp"
 #include <list>
 
 using namespace std;
