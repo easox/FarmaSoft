@@ -16,4 +16,4 @@ class CVenta{
     CVenta();
     CVenta(CMedicamento* med,int cantidad);
     ~CVenta();
-}
+};

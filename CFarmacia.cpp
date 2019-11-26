@@ -43,3 +43,13 @@ CCompra* CFarmacia::determine_compra(){
       return compra;
       
 };
+
+CVenta* make_venta(int id_med,int catindad){
+  if(){
+    
+  }else{
+
+  }
+
+
+};

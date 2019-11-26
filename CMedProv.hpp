@@ -19,6 +19,7 @@ public:
 	float get_price();
 	int get_existencia();
 	~CMedProv(void);
+	
 
 	
 };

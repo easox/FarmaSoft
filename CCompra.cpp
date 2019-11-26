@@ -40,7 +40,7 @@ void CCompra::find_proveedor(list<CProveedor*> global_proveedores){
           (*it_meds)->update_proveedor(*it_prov);//update proveedor
           
         }else{
-          
+          //TODO: If no one has it
         }
         
       }
