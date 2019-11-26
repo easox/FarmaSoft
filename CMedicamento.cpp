@@ -1,4 +1,4 @@
-#include "CMedicamento.hpp"
+#include "CMedicamento.h"
 
 CMedicamento::CMedicamento(void) {
 	this->m_i_cn = 0;
@@ -6,14 +6,14 @@ CMedicamento::CMedicamento(void) {
 }
 CMedicamento::CMedicamento(const CMedicamento& medicamento) {
 	this->m_i_cn = medicamento.m_i_cn;
-	
+
 }
 CMedicamento::CMedicamento(int m_i_cn) {
 	this->m_i_cn = m_i_cn;
 }
 
 ostream& operator<<(std::ostream& o, const CMedicamento& medicamento) {
-	o << "(" << medicamento.m_i_cn <<")";
+	o << "(" << medicamento.m_i_cn << ")";
 	return o;
 }
 
