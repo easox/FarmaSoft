@@ -1,4 +1,4 @@
-#include "CProveedor.h"
+#include "CProveedor.hpp"
 using namespace std;
 
 //Clase CProveedor.cpp
