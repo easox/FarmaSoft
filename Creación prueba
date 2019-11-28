@@ -1,10 +1,10 @@
 	CProveedor P1(1, "Cecofar");
 	CProveedor P2(2 , "Cofares");
 	
-	CMedicamento M1(1);
-	CMedicamento M2(2);
-	CMedicamento M3(3);
-	CMedicamento M4(4);
+	
+	//med_a y med_b
+	 CMedProv medprov_a (23.55,med_a);
+	 CMedProv medprov_b (2.55,med_b);
 
 	CPos Pos1(1, 2);
 	CPos Pos2 (2, 1);
