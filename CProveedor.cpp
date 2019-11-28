@@ -31,7 +31,17 @@ istream& operator>>(istream& i, CProveedor& proveedor) {
 }
 
 CProveedor::~CProveedor(void) {
+	list<CMedProv*>::iterator it;
+	
+  while(!m_listmed.empty()){
+    it=m_listmed.begin();
+    m_listmed.pop_front();
+    delete *it;
+  }
+	
 	cout << "CProveedor has been deleted with = " << *this << endl;
+	
+
 }
 
 float CProveedor::get_price(CMedicamento* med) {

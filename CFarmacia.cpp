@@ -12,7 +12,7 @@ CFarmacia::CFarmacia(int id, CPos* pos,list<CMedFarm*> medicamentos){
       m_medicamentos=medicamentos;
     };
 CFarmacia::~CFarmacia(){
-  free(m_pos);
+  delete m_pos;
 
   list<CMedFarm*>::iterator it;
   while(!m_medicamentos.empty()){

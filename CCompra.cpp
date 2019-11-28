@@ -16,8 +16,8 @@ CCompra::CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
 }
 
 CCompra::~CCompra(){
-  free(m_fecha);
-  free(m_farmacia);
+  delete m_fecha;
+  delete m_farmacia;
 
   list<CMedCompra*>::iterator it;
   while(!m_meds.empty()){
