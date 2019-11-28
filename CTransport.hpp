@@ -1,4 +1,5 @@
-
+#ifndef CTRANSPORT
+#define CTRANSPORT
 #pragma once
 
 #include <iostream>
@@ -28,3 +29,4 @@ public:
 	~CTransport(void);
 	
 };
+#endif

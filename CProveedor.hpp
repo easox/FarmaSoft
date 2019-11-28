@@ -1,3 +1,5 @@
+#ifndef CPROVEEDOR
+#define CPROVEEDOR
 #pragma once
 
 #include <iostream>
@@ -27,3 +29,5 @@ public:
 	float get_price(CMedicamento* med); //indica el precio de un medicamento en su inventario, devuelve 99999 si no lo tiene
 	int med_available(CMedicamento* med); // indica si tiene ese medicamento en su inventario. Devuelve 1 si hay y 0 si no
 };
+
+#endif

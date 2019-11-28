@@ -1,3 +1,5 @@
+#ifndef CVENTA
+#define CVENTA
 #pragma once
 
 #include <iostream>
@@ -17,3 +19,5 @@ class CVenta{
     CVenta(CMedicamento* med,int cantidad);
     ~CVenta();
 };
+
+#endif

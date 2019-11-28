@@ -1,3 +1,5 @@
+#ifndef CMEDICAMENTO
+#define CMEDICAMENTO
 #pragma once
 
 #include <iostream>
@@ -19,3 +21,4 @@
 		friend std::istream& operator>>(std::istream& i, CMedicamento& medicamento);
 	};
 
+#endif

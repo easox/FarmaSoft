@@ -1,3 +1,5 @@
+#ifndef CMEDPROV
+#define CMEDPROV
 #pragma once
 #include <iostream>
 #include <string>
@@ -27,3 +29,4 @@ public:
 	
 };
 
+#endif

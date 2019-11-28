@@ -1,15 +1,18 @@
+#ifndef CCOMPRA
+#define CCOMPRA
 #pragma once
 
 #include <iostream>
 #include <string>
 #include <list>
 #include <ctime>
+#include "CFarmacia.hpp"
 #include "CDateTime.hpp"
 #include "CPos.hpp"
 #include "CMedicamento.hpp"
 #include "CProveedor.hpp"
 #include "CMedFarm.hpp"
-#include "CFarmacia.hpp"
+
 class CCompra {
 	private:
 		int m_i_id_compra;
@@ -28,3 +31,4 @@ class CCompra {
 
 };
 
+#endif

@@ -1,3 +1,6 @@
+#ifndef CMEDCOMPRA
+#define CMEDCOMPRA
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -25,3 +28,5 @@ class CMedCompra{
     void update_proveedor(CProveedor* proveedor){m_proveedor=proveedor;};
 
 };
+
+#endif

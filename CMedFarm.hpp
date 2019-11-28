@@ -1,3 +1,5 @@
+#ifndef CMEDFARM
+#define CMEDFARM
 #pragma once
 
 #include <iostream>
@@ -31,3 +33,5 @@ public:
 
 
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CPOS
+#define CPOS
+
 #pragma once
 #include <time.h>
 #include <iostream>
@@ -20,3 +22,4 @@ public:
 	float get_y();
 	friend std::ostream& operator<<(std::ostream& os, const CPos& pos);
 };
+#endif

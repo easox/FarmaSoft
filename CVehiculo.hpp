@@ -1,3 +1,7 @@
+#ifndef CVEHICULO
+#define CVEHICULO
+
+
 #pragma once
 #include <time.h>
 #include <iostream>
@@ -28,3 +32,4 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const CVehiculo& vehiculo);
 
 };
+#endif
