@@ -48,8 +48,8 @@ float CProveedor::get_price(CMedicamento* med) {
 	list<CMedProv*> ::iterator i;
 	float price = 100000;
 	for (i = m_listmed.begin() ; i != m_listmed.end(); ++i){
-	if ((*i)->get_medicamento()->get_cn() == med->get_cn) {
-		price = (*i)->get_price;
+	if ((*i)->get_medicamento()->get_cn() == med->get_cn()) {
+		price = (*i)->get_price();
 		break;
 	}
 }
@@ -60,7 +60,7 @@ int CProveedor::med_available(CMedicamento* med) {
 	list<CMedProv*> ::iterator i;
 	int available = 0;
 	for (i = m_listmed.begin(); i != m_listmed.end(); ++i) {
-		if ((*i)->get_medicamento()->get_cn() == med->get_cn) {
+		if ((*i)->get_medicamento()->get_cn() == med->get_cn()) {
 			available = 1;
 			break;
 		}
