@@ -5,24 +5,26 @@
 #include <string>
 using namespace std;
 
-class CVehiculo{
+class CVehiculo {
 
-  private:
-    string m_s_matricula;
-    int m_i_capacidad;
-    CPos* m_p_posicion;
-  public:
-    //move position
-    void move(const CPos &);
-    //Function that calculates distance from where you are to travel to
+private:
+	string m_s_matricula;
+	int m_i_capacidad;
+	CPos* m_p_posicion;
+public:
+	//move position
+	void move(const CPos&);
+	//Function that calculates distance from where you are to travel to
 
-    float dist_to(const CPos& travel_to);
-    CPos get_pos(void){return *(this->m_p_posicion);};
-    int get_capacidad(void){return this->m_i_capacidad;};
-    string get_matricula(void){return this->m_s_matricula;};
+	float dist_to(const CPos& travel_to);
+	CPos get_pos(void);
+	int get_capacidad(void);
+	string get_matricula(void);
 
-    CVehiculo(){};
-    CVehiculo(string matricula,int capacidad, CPos posicion);
-    ~CVehiculo(){};
+	CVehiculo() ;
+	CVehiculo(string matricula, int capacidad, CPos* posicion);
+	~CVehiculo();
+
+	friend std::ostream& operator<<(std::ostream& os, const CVehiculo& vehiculo);
 
 };
