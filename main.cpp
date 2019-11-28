@@ -44,7 +44,7 @@ int main(void){
 
 		//TODO:UPDATE Farmacia, insert compra (DBManager)
 
-		free(compra);  //tambien hace free de farmacia
+		delete compra;  //tambien hace free de farmacia
 	}
 
 
@@ -57,6 +57,6 @@ int main(void){
     proveedores.pop_front();
     delete *it_prov;
   }
-	
+
 	return 0;
 }
