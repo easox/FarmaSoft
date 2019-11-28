@@ -5,7 +5,7 @@
 #include "CFarmacia.hpp"
 #include "CMedicamento.hpp"
 #include "CPos.hpp"
-#include "CProvedor.hpp"
+#include "CProveedor.hpp"
 #include "CTransport.hpp"
 #include "CVehiculo.hpp"
 #include "CVenta.hpp"
