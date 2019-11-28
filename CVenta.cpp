@@ -15,7 +15,7 @@ CVenta::CVenta(CMedicamento* med,int cantidad){
 };
 
 CVenta::~CVenta(){
-  free(m_med_vendido);
-  free(m_fecha);
+  delete m_med_vendido;
+  delete m_fecha;
 
 };
