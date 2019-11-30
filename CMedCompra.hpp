@@ -23,9 +23,9 @@ class CMedCompra{
     ~CMedCompra();
 
     CMedicamento* get_med(void);
-    float get_price(void){return m_f_price;};
-    void update_price(float price){m_f_price=price;};
-    void update_proveedor(CProveedor* proveedor){m_proveedor=proveedor;};
+    float get_price(void);
+    void update_price(float price);
+    void update_proveedor(CProveedor* proveedor);
 
 };
 

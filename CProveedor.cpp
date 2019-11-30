@@ -6,18 +6,14 @@ using namespace std;
 CProveedor::CProveedor(const CProveedor& proveedor) {
 	this->m_i_id_proveedor = proveedor.m_i_id_proveedor;
 	this->m_s_nombre = proveedor.m_s_nombre;
-	this->m_listmed = {};
+	this->m_listmed.clear();
 }
 CProveedor::CProveedor(int m_i_id_proveedor, string m_s_nombre, list <CMedProv*> l_medprov) {
 	this->m_i_id_proveedor = m_i_id_proveedor;
 	this->m_s_nombre = m_s_nombre;
 	this->m_listmed = l_medprov;
 }
-CProveedor::CProveedor(const CProveedor& proveedor) {
-	this->m_i_id_proveedor = proveedor.m_i_id_proveedor;
-	this->m_s_nombre = proveedor.m_s_nombre;
-	this->m_listmed=proveedor.m_listmed;
-}
+
 
 ostream& operator<<(std::ostream& o, const CProveedor& proveedor) {
 	o << "(" << proveedor.m_i_id_proveedor << "," << proveedor.m_s_nombre << ")";
@@ -31,7 +27,7 @@ istream& operator>>(istream& i, CProveedor& proveedor) {
 	return i;
 }
 
-CProveedor::~CProveedor(void) {
+CProveedor::~CProveedor() {
 	list<CMedProv*>::iterator it;
 	
   while(!m_listmed.empty()){
@@ -43,7 +39,7 @@ CProveedor::~CProveedor(void) {
 	cout << "CProveedor has been deleted with = " << *this << endl;
 	
 
-}
+};
 
 float CProveedor::get_price(CMedicamento* med) {
 	list<CMedProv*> ::iterator i;

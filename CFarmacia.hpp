@@ -8,14 +8,15 @@
 #include "CPos.hpp"
 #include "CMedFarm.hpp"
 #include "CMedCompra.hpp"
-#include "CCompra.hpp"
 #include "CVenta.hpp"
+
 
 #define BUFFER 100
 
 
 using namespace std;
 
+class CCompra;
 class CFarmacia{
   private:
     int m_i_id_farmacia;

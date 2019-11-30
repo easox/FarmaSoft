@@ -8,6 +8,9 @@
 #include "CCompra.hpp"
 #include "CProveedor.hpp"
 #include "CMedFarm.hpp"
+#include "CMedicamento.hpp"
+#include "CMedCompra.hpp"
+
 
 using namespace std;
 
@@ -25,7 +28,7 @@ int main(void){
 	CMedicamento* med_a=new CMedicamento(100);
 	CMedicamento* med_b=new CMedicamento(101);
 	CMedFarm* med_1a= new CMedFarm(1500,1600,3000,med_a);
-	CMedFarm* med_1b= new CMedFarm(2300,1900,3100,med_b);
+	CMedFarm* med_1b= new CMedFarm(100,1900,3100,med_b);
 	
 	CMedFarm* med_2a= new CMedFarm(1100,1600,3000,med_a);
 

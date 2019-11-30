@@ -1,4 +1,5 @@
 #include "CFarmacia.hpp"
+#include "CCompra.hpp"
 
 CFarmacia::CFarmacia(){
       m_i_id_farmacia=0;
@@ -34,6 +35,7 @@ CCompra* CFarmacia::determine_compra(){
         if((*it_farm)->get_cantidad()<=(*it_farm)->get_cantidad_min()+BUFFER){
 
           CMedCompra* temp_med_compra=new CMedCompra((*it_farm)->get_med(),(*it_farm)->get_cantidad_max()-(*it_farm)->get_cantidad());
+            med_needed.push_back(temp_med_compra);
 
         }
       }
@@ -56,4 +58,5 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
       return venta;
     }
   }
+    return 0;
 };
