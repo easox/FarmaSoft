@@ -1,19 +1,61 @@
 {
+  "version": "2.0.0",
   "tasks": [
+    {
+      "type": "shell",
+      "label": "clang build active file",
+      "command": "/usr/bin/clang",
+      "args": [
+        "-g",
+        "${file}",
+        "CCompra.cpp",
+        "CDateTime.cpp",
+        "CFarmacia.cpp",
+        "CMedCompra.cpp",
+        "CMedFarm.cpp",
+        "CMedicamento.cpp",
+        "CMedProv.cpp",
+        "CPos.cpp",
+        "CProveedor.cpp",
+        "CTransport.cpp",
+        "CVehiculo.cpp",
+        "CVenta.cpp",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
     {
       "type": "shell",
       "label": "clang++ build active file",
       "command": "/usr/bin/clang++",
       "args": [
         "-g",
+        "${fileDirname}/CCompra.cpp",
+        "${fileDirname}/CDateTime.cpp",
+        "${fileDirname}/CFarmacia.cpp",
+        "${fileDirname}/CMedCompra.cpp",
+        "${fileDirname}/CMedFarm.cpp",
+        "${fileDirname}/CMedicamento.cpp",
+        "${fileDirname}/CMedProv.cpp",
+        "${fileDirname}/CPos.cpp",
+        "${fileDirname}/CProveedor.cpp",
+        "${fileDirname}/CTransport.cpp",
+        "${fileDirname}/CVehiculo.cpp",
+        "${fileDirname}/CVenta.cpp",
         "${file}",
         "-o",
-        "${fileDirname}/*.cpp"
+        "${fileDirname}/${fileBasenameNoExtension}"
       ],
       "options": {
         "cwd": "/usr/bin"
       }
     }
-  ],
-  "version": "2.0.0"
+  ]
 }
