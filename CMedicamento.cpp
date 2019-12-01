@@ -25,7 +25,6 @@ istream& operator>>(istream& i, CMedicamento& medicamento) {
 }
 
 CMedicamento::~CMedicamento(void) {
-	cout << "CMedicamento has been deleted with = " << *this << endl;
 }
 
 

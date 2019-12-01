@@ -24,6 +24,7 @@ class CMedCompra{
 
     CMedicamento* get_med(void);
     float get_price(void);
+    int get_cantidad();
     void update_price(float price);
     void update_proveedor(CProveedor* proveedor);
 

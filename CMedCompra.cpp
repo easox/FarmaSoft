@@ -32,3 +32,6 @@ void CMedCompra::update_proveedor(CProveedor* proveedor){
   m_proveedor=proveedor;
 };
 
+int CMedCompra::get_cantidad(){
+    return this->m_i_cantidad;
+}

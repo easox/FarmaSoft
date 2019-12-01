@@ -1,4 +1,5 @@
 #include "CCompra.hpp"
+#include "CFarmacia.hpp"
 CCompra::CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
 			
   m_i_id_compra=id_compra;
@@ -38,17 +39,33 @@ void CCompra::find_proveedor(list<CProveedor*> global_proveedores){
 
           (*it_meds)->update_price((*it_prov)->get_price((*it_meds)->get_med())); //update price
           (*it_meds)->update_proveedor(*it_prov);//update proveedor
+            
           
         }else{
-          //TODO: If no one has it
+          //TODO: If no one has it 
         }
         
       }
     }
   }
-  //TODO: update farmacy
 }
 
 int CCompra::get_id(void) { 
   return this->m_i_id_compra;
+}
+
+
+ostream& operator<<(std::ostream& o, CCompra* compra){
+    
+    o<<"Farmacia con ID:"<< compra->m_farmacia->get_ID()<<endl;
+    
+    list<CMedCompra*>::iterator it_meds;
+    compra->m_meds.begin();
+    
+    for(it_meds=compra->m_meds.begin();it_meds != compra->m_meds.end();++it_meds){
+        o<<"       Compra MED con ID:"<<(*it_meds)->get_med()->get_cn()<<endl<<
+        "          Cantidad comprada:"<<(*it_meds)->get_cantidad()<<endl<<
+        "          Precio: "<<(*it_meds)->get_price()<<endl;
+    }
+    return o;
 }

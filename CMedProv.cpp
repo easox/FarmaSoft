@@ -26,7 +26,6 @@ ostream& operator<<(std::ostream& os, const CMedProv& medprov) {
 //}
 
 CMedProv::~CMedProv(void) {
-	cout << "CMedProv has been deleted with = " << *this << endl;
 }
 
 float CMedProv::get_price() {

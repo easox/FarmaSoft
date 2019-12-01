@@ -15,8 +15,8 @@ CProveedor::CProveedor(int m_i_id_proveedor, string m_s_nombre, list <CMedProv*>
 }
 
 
-ostream& operator<<(std::ostream& o, const CProveedor& proveedor) {
-	o << "(" << proveedor.m_i_id_proveedor << "," << proveedor.m_s_nombre << ")";
+ostream& operator<<(std::ostream& o, CProveedor* proveedor) {
+    o << "Proveedor: "<<proveedor->get_name();
 	return o;
 }
 
@@ -35,9 +35,6 @@ CProveedor::~CProveedor() {
     m_listmed.pop_front();
     delete *it;
   }
-	
-	cout << "CProveedor has been deleted with = " << *this << endl;
-	
 
 };
 
@@ -63,4 +60,9 @@ int CProveedor::med_available(CMedicamento* med) {
 		}
 	}
 	return available;
+}
+
+string CProveedor::get_name(){
+    
+    return this->m_s_nombre;
 }

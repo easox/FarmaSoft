@@ -9,7 +9,6 @@ CPos::CPos(float x, float y) {
 	m_f_y = y;
 };
 CPos::~CPos() {
-	cout << "CPos has been deleted with = " << *this << endl;
 };
 float CPos::get_x() {
 	return m_f_x;

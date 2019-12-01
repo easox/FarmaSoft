@@ -29,5 +29,9 @@ class CFarmacia{
     ~CFarmacia();
     CCompra* determine_compra();//returns what it needs to buy(quantity) but not from whom or at what price.
     CVenta* make_venta(int id_med,int cantidad_venta);
+    int get_ID();
+    friend std::ostream& operator<<(std::ostream& os, CFarmacia* farmacia);
+    
+    
 };
 #endif

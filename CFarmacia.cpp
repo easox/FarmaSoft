@@ -60,3 +60,19 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
   }
     return 0;
 };
+
+int CFarmacia::get_ID(){
+    return this->m_i_id_farmacia;
+}
+
+ostream& operator<<(std::ostream& os, CFarmacia* farmacia){
+    
+    os<<"ID FARMACIA:"<<farmacia->m_i_id_farmacia<<endl;
+    list<CMedFarm*>::iterator it_meds;
+    
+    for(it_meds=farmacia->m_medicamentos.begin();it_meds != farmacia->m_medicamentos.end();++it_meds){
+        os<<"       MED:"<<(*it_meds)->get_med()->get_cn()<<"  cantidad:"<<(*it_meds)->get_cantidad()<<endl;
+    }
+    
+    return os;
+}

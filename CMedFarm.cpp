@@ -38,10 +38,10 @@ ostream& operator<<(std::ostream& os, const CMedFarm& medfarm) {
 }
 
 CMedFarm::~CMedFarm() {
-	cout << "CMedFarm has been deleted with = " << *this << endl;
+    delete m_medicamento;
 }
 
 
 void CMedFarm::add_cantidad(int cantidad){
-	m_i_cantidad-=cantidad;
+	m_i_cantidad+=cantidad;
 }
