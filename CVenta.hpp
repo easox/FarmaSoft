@@ -14,11 +14,12 @@ class CVenta{
     CDateTime* m_fecha;
     CFarmacia* m_farmacia;
     int m_cantidad;
+    int m_i_id_venta; 
 
   public:
 
     CVenta();
-    CVenta(CMedicamento* med,int cantidad,CFarmacia* farmacia);
+    CVenta(int id_venta, CMedicamento* med,int cantidad,CFarmacia* farmacia);
     ~CVenta();
 };
 
