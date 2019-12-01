@@ -92,7 +92,10 @@ int main(void){
         
             cout<<"Escribir ID del medicamento y cantidad vendida:"<<endl;
             cin>> id >> cantidad;
-            (*it_farm)->make_venta(id,cantidad);
+            CVenta* venta= (*it_farm)->make_venta(id,cantidad);
+            delete venta;
+            
+            
             //TODO: ADD VENTA TO DATA BASE AND UPDATE MED_FARMACIA
         }
 	}
