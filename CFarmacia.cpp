@@ -51,7 +51,7 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
 
   for(it_meds=m_medicamentos.begin();it_meds != m_medicamentos.end();++it_meds){
     if(id_med==(*it_meds)->get_med()->get_cn()){
-      CVenta* venta=new CVenta((*it_meds)->get_med(),cantidad_venta);
+      CVenta* venta=new CVenta((*it_meds)->get_med(),cantidad_venta,this);
 
       (*it_meds)->add_cantidad(-cantidad_venta);
 

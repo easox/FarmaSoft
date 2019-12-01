@@ -1,4 +1,5 @@
 #include "CVenta.hpp"
+#include "CFarmacia.hpp"
 
 
 CVenta::CVenta(){
@@ -8,10 +9,11 @@ CVenta::CVenta(){
   
 
 };
-CVenta::CVenta(CMedicamento* med,int cantidad){
+CVenta::CVenta(CMedicamento* med,int cantidad,CFarmacia* farmacia){
   m_med_vendido=med;
   m_fecha=new CDateTime(time(0));
   m_cantidad=cantidad;
+  m_farmacia=farmacia;
 };
 
 CVenta::~CVenta(){
