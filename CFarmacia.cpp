@@ -28,14 +28,16 @@ CCompra* CFarmacia::determine_compra(){
     
       
       list<CMedCompra*> med_needed;
-      list<CMedFarm*>::iterator it_farm;
-      list<CMedCompra*>::iterator it_meds;
+      list<CMedFarm*>::iterator it_mfarm;
 
-      for(it_farm=this->m_medicamentos.begin();it_farm != this->m_medicamentos.end();++it_farm){
-        if((*it_farm)->get_cantidad()<=(*it_farm)->get_cantidad_min()+BUFFER){
+      for(it_mfarm=this->m_medicamentos.begin();it_mfarm != this->m_medicamentos.end();++it_mfarm){
+        if((*it_mfarm)->get_cantidad()<=(*it_mfarm)->get_cantidad_min()+BUFFER){
 
-          CMedCompra* temp_med_compra=new CMedCompra((*it_farm)->get_med(),(*it_farm)->get_cantidad_max()-(*it_farm)->get_cantidad());
+          CMedCompra* temp_med_compra=new CMedCompra((*it_mfarm)->get_med(),(*it_mfarm)->get_cantidad_max()-(*it_mfarm)->get_cantidad());
             med_needed.push_back(temp_med_compra);
+          (*it_mfarm)->add_cantidad((*it_mfarm)->get_cantidad_max()-(*it_mfarm)->get_cantidad());
+            
+            
 
         }
       }
@@ -51,15 +53,23 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
 
   for(it_meds=m_medicamentos.begin();it_meds != m_medicamentos.end();++it_meds){
     if(id_med==(*it_meds)->get_med()->get_cn()){
-      CVenta* venta=new CVenta((*it_meds)->get_med(),cantidad_venta,this);
+      
+      if(cantidad_venta<=(*it_meds)->get_cantidad() && cantidad_venta>0){
+          CVenta* venta=new CVenta((*it_meds)->get_med(),cantidad_venta,this);
+         (*it_meds)->add_cantidad(-cantidad_venta);
+          return venta;
+      }
 
-      (*it_meds)->add_cantidad(-cantidad_venta);
-
-      return venta;
+      
     }
   }
-    return 0;
+    cout<<"Venta no válida"<<endl;
+    return NULL;
 };
+
+int CFarmacia::get_ID(){
+    return this->m_i_id_farmacia;
+}
 
 ostream& operator<<(std::ostream& os, CFarmacia* farmacia){
     

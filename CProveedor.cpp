@@ -66,3 +66,7 @@ string CProveedor::get_name(){
     
     return this->m_s_nombre;
 }
+
+int CProveedor::get_id(){
+    return this->m_i_id_proveedor;
+}

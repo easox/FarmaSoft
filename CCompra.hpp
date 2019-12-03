@@ -17,13 +17,14 @@
 class CFarmacia;
 class CCompra {
 	private:
+		
 		CDateTime* m_fecha;
 		list<CMedCompra*> m_meds;
 		CFarmacia* m_farmacia;
 
 	public:
 		CCompra(){};
-		CCompra(CFarmacia* to_farmacia,list<CMedCompra*>);
+		CCompra(CFarmacia* to_farmacia);
 		CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed);
 		~CCompra();
 

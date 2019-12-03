@@ -18,7 +18,6 @@ CCompra::CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
 
 CCompra::~CCompra(){
   delete m_fecha;
-  delete m_farmacia;
 
   list<CMedCompra*>::iterator it;
   while(!m_meds.empty()){
@@ -41,13 +40,15 @@ void CCompra::find_proveedor(list<CProveedor*> global_proveedores){
           (*it_meds)->update_proveedor(*it_prov);//update proveedor
             
           
-        }else{
-          //TODO: If no one has it 
         }
         
       }
     }
   }
+}
+
+int CCompra::get_id(void) { 
+  return this->m_i_id_compra;
 }
 
 
