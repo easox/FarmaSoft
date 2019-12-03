@@ -1,4 +1,5 @@
 #include "DBManager.h"
+
 #include <Windows.h>
 #include <stdio.h>
 #include <sqlext.h>
@@ -8,20 +9,6 @@
 #include <list>
 
 using namespace std;
-
-//#include "CCompra.hpp"
-//#include "CDateTime.hpp"
-//#include "CFarmacia.hpp"
-//#include "CMedCompra.hpp"
-//#include "CMedFarm.hpp"
-//#include "CMedicamento.hpp"
-//#include "CMedProv.hpp"
-//#include "CPos.hpp"
-//#include "CProveedor.hpp"
-//#include "CTransport.hpp"
-//#include "CVehiculo.hpp"
-//#include "CVenta.hpp"
-
 
 // CONECTAR CON MYSQL
 CDBManager::CDBManager() {
@@ -37,11 +24,12 @@ CDBManager::CDBManager() {
 		// stablish connection. ODBC DSN configuration is required
 		ret = SQLDriverConnect(dbc, NULL, (SQLCHAR*) "DSN=MySQLCon", SQL_NTS, NULL, 0, NULL, SQL_DRIVER_COMPLETE);
 		ret = SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER)FALSE, 0);
+		SQLWCHAR status[10]; SQLINTEGER error;
+		SQLSMALLINT i_size; SQLWCHAR message[1000];
 		if (ret != SQL_SUCCESS) {
 			// you can get the error in the message string.
 			cout << "Connection failed\n";
-			SQLWCHAR status[10]; SQLINTEGER error;
-			SQLSMALLINT i_size; SQLWCHAR message[1000];
+
 			SQLGetDiagRec(SQL_HANDLE_DBC, dbc, 1, (SQLCHAR*) status, &error, (SQLCHAR*) message, 1000, &i_size);
 		}
 		else
@@ -63,25 +51,21 @@ CDBManager::~CDBManager()
 
 //QUERIES
 SQLHSTMT CDBManager::LaunchQuery(std::string query) {
-	if (ret == SQL_SUCCESS)
-	{
+
 		// Allocate a statement handle
 		ret = SQLAllocHandle(SQL_HANDLE_STMT, dbc, &stmt);
 		ret = SQLSetConnectAttr(dbc, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER)TRUE, 0);
-		wchar_t wcstring[100];
-		// conversion from UTF8 to UNICODE
-		MultiByteToWideChar(CP_UTF8, 0, query.c_str(), -1, wcstring, 100);
 		// query execution
-		ret = SQLExecDirect(stmt, (SQLCHAR*) wcstring, SQL_NTS);
-	}
+		ret = SQLExecDirect(stmt, (SQLCHAR*)query.c_str(), SQL_NTS);
+		return stmt;
 }
 
 
 CFarmacia* CDBManager::GetFarmacia(int id_farmacia)				//Devuelve los datos de una farmacia
 {
-	SQLHSTMT stmt = LaunchQuery("SELECT POS_X, POS_Y FROM FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
-	SQLRETURN ret;
-	CFarmacia* farmacia;
+	stmt = LaunchQuery("SELECT POSICION_X, POSICION_Y FROM FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
+	
+	CFarmacia* farmacia=NULL;
 	CPos* posicion;
 	std::list<CMedFarm*> medicamentos_farmacia;
 	SQLINTEGER indicator;
@@ -105,25 +89,22 @@ CFarmacia* CDBManager::GetFarmacia(int id_farmacia)				//Devuelve los datos de u
 }
 
 
-std::list<CFarmacia*> CDBManager::GetGrupoFarmacias()				//Devuelve una lista de farmacias con sus datos
+std::list<CFarmacia*> CDBManager::GetListaFarmacias()				//Devuelve una lista de farmacias con sus datos
 {
-	SQLHSTMT stmt = LaunchQuery("SELECT ID_FARMACIA, POS_X, POS_Y FROM FARMACIA;");
-	SQLRETURN ret;
+	stmt = LaunchQuery("SELECT ID_FARMACIA, POSICION_X, POSICION_Y FROM FARMACIA;");
+	
 	std::list<CFarmacia*> grupo_farmacias;
 	CPos* posicion;
 	std::list<CMedFarm*> medicamentos_farmacia;
 	SQLINTEGER indicator, id_farmacia;
 	SQLDOUBLE pos_x, pos_y;
 
-
 	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
 	{
-		/* see lab 3 and complete this while */
 		ret = SQLGetData(stmt, 1, SQL_C_LONG, &id_farmacia, 0, &indicator);
 		ret = SQLGetData(stmt, 3, SQL_C_DOUBLE, &pos_x, 0, &indicator);
 		ret = SQLGetData(stmt, 4, SQL_C_DOUBLE, &pos_y, 0, &indicator);
 
-		//get lista medicamentos (hacer funcion nueva)
 		medicamentos_farmacia = GetMedFarm(id_farmacia);
 
 		posicion = new CPos(pos_x, pos_y);
@@ -137,8 +118,8 @@ std::list<CFarmacia*> CDBManager::GetGrupoFarmacias()				//Devuelve una lista de
 
 std::list<CMedicamento*> CDBManager::GetListaMedicamentos(int id_farmacia)				//Devuelve la lista de medicamentos de una farmacia
 {
-	SQLHSTMT stmt = LaunchQuery("SELECT CN FROM MEDICAMENTO_FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
-	SQLRETURN ret;
+	stmt = LaunchQuery("SELECT CN FROM MEDICAMENTO_FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
+	
 	std::list<CMedicamento*> medicamentos;
 	SQLINTEGER indicator;
 	SQLDOUBLE CN;
@@ -159,13 +140,12 @@ std::list<CMedicamento*> CDBManager::GetListaMedicamentos(int id_farmacia)				//
 
 std::list<CMedFarm*> CDBManager::GetMedFarm(int id_farmacia)				//Devuelve cantidad, max y min de cada medicamento en una farmacia
 {
-	SQLHSTMT stmt = LaunchQuery("SELECT CN, CANTIDAD, CANTIDAD_MIN, CANTIDAD_MAX FROM MEDICAMENTO_FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
-	SQLRETURN ret;
+	stmt = LaunchQuery("SELECT CN, CANTIDAD, CANTIDAD_MIN, CANTIDAD_MAX FROM MEDICAMENTO_FARMACIA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ");");
+	
 	std::list<CMedFarm*> medfarm;
 	SQLINTEGER indicator;
 	SQLDOUBLE CN;
 	SQLINTEGER cantidad, cantidad_min, cantidad_max;
-
 
 
 	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
@@ -182,69 +162,162 @@ std::list<CMedFarm*> CDBManager::GetMedFarm(int id_farmacia)				//Devuelve canti
 	return medfarm;
 }
 
+std::list<CProveedor*> CDBManager::GetListaProveedores()				//Devuelve una lista de farmacias con sus datos
+{
+	stmt = LaunchQuery("SELECT ID_PROVEEDOR, NOMBRE FROM PROVEEDOR;");
+	
+	std::list<CProveedor*> lista_proveedores;
+	std::list<CMedProv*> medicamentos_proveedor;
+	SQLCHAR nombre[20];
+	SQLINTEGER indicator, id_proveedor;
+
+	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
+	{
+		ret = SQLGetData(stmt, 1, SQL_C_LONG, &id_proveedor, 0, &indicator);
+		ret = SQLGetData(stmt, 2, SQL_C_CHAR, &nombre, 20, &indicator);
+
+		//get lista proveedores
+		medicamentos_proveedor = GetMedProv(id_proveedor);
+
+		string snombre((const char*)nombre);
+
+		lista_proveedores.push_back(new CProveedor(id_proveedor, snombre, medicamentos_proveedor));
+
+	}
+
+	return lista_proveedores;
+}
+
+std::list<CMedProv*> CDBManager::GetMedProv(int id_proveedor)				//Devuelve lista de medicamentos y precios de un proveedor
+{
+	stmt = LaunchQuery("SELECT CN, PRECIO FROM MEDPROV WHERE ID_PROVEEDOR = " + std::to_string(id_proveedor) + ");");
+	
+	std::list<CMedProv*> medprov;
+	SQLINTEGER indicator;
+	SQLDOUBLE CN, precio;
+
+
+
+	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
+	{
+		ret = SQLGetData(stmt, 1, SQL_C_DOUBLE, &CN, 0, &indicator);
+		ret = SQLGetData(stmt, 2, SQL_C_DOUBLE, &precio, 0, &indicator);
+
+		medprov.push_back(new CMedProv(new CMedicamento(CN), precio));
+	}
+
+	return medprov;
+}
 
 
 void CDBManager::NuevaVenta(CVenta* venta)				//Crea una nueva venta
 {
-	int cantidad = venta->getCantidad();
+	int cantidad_vendida = venta->getCantidad();
 	CDateTime* fecha_datetime = venta->getFecha();
-	int fecha = fecha_datetime->getTime_t();
+	int year = fecha_datetime->getYear();
+	int month = fecha_datetime->getMonth();
+	int day = fecha_datetime->getDay();
 	CMedicamento* medicamento = venta->getMedicamento();
 	float CN = medicamento->get_cn();
-	int id_venta = venta->getIDVenta();
 	CFarmacia* farmacia = venta->getFarmacia();
 	int id_farmacia = farmacia->get_ID();
 
+	int cantidad_antigua;
+	int cantidad;
 
-	SQLHSTMT stmt = LaunchQuery("INSERT INTO VENTA(ID_FARMACIA, CANTIDAD, FECHA, ID_VENTA, CN)  VALUES (" + std::to_string(id_farmacia) + "," + std::to_string(cantidad) + "," + std::to_string(fecha) + "," + std::to_string(id_venta) + "," + std::to_string(CN) + ");");
 
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-	
+	stmt = LaunchQuery("INSERT INTO VENTA(ID_FARMACIA, CANTIDAD, FECHA, CN)  VALUES (" + std::to_string(id_farmacia) + "," + std::to_string(cantidad_vendida) + ", '" + std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + "' ,"  + std::to_string(CN) + ");");
+
+	cantidad_antigua = GetCantidadMedFarm(id_farmacia, CN);
+
+	cantidad = cantidad_antigua - cantidad_vendida;
+
+	ActualizarMedFarmVenta(id_farmacia, CN, cantidad);
+
 	return;
 }
 
+int CDBManager::GetCantidadMedFarm(int id_farmacia, float CN)			//Devuelve una lista de farmacias con sus datos
+{
+	stmt = LaunchQuery("SELECT CANTIDAD FROM MEDFARM WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ", CN = " + std::to_string(CN) + ";");
+	
+	SQLINTEGER indicator, cantidad;
+
+	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
+	{
+		ret = SQLGetData(stmt, 1, SQL_C_LONG, &cantidad, 0, &indicator);
+	}
+
+	return cantidad;
+}
+
+void CDBManager::ActualizarMedFarmVenta(int id_farmacia, float CN, int cantidad)
+{
+	stmt = LaunchQuery("UPDATE MEDFARM SET CANTIDAD = " + std::to_string(cantidad) + "WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ", CN = " + std::to_string(CN) + ";");
+
+	return;
+}
 
 void CDBManager::BorrarVenta(int id_venta)				//Borra la venta con identificador id_venta
 {
-	SQLHSTMT stmt = LaunchQuery("DELETE FROM VENTA WHERE ID_VENTA = " + std::to_string(id_venta) + ";");
+	stmt = LaunchQuery("DELETE FROM VENTA WHERE ID_VENTA = " + std::to_string(id_venta) + ";");
 
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
+	return;
+}
+
+void CDBManager::BorrarProveedor(int id_proveedor)				//Nos permite borrar una compra del sistema
+{
+	stmt = LaunchQuery("DELETE FROM PROVEEDOR WHERE ID_PROVEEDOR = " + std::to_string(id_proveedor) + ";");
+
+	return;
+}
+
+void CDBManager::NuevaCompra(CCompra* compra)				//Nos permite introducir una nueva compra en el sistema
+{//compra: idfarmacia, fecha,idcompra**
+ //medcompra: idcompra**,cn,cantidad,idproveedor,precio
+ //ccompra:fecha,farmacia,medcompra(meds(cn),cantidad,precio,proveedor)
+	CDateTime* fecha_datetime = compra->getFecha();
+	int year = fecha_datetime->getYear();
+	int month = fecha_datetime->getMonth();
+	int day = fecha_datetime->getDay();
+	CFarmacia* farmacia = compra->getFarmacia();
+	int id_farmacia = farmacia->get_ID();
+
+	int cantidad_comprada//me tiene que llegar de alguna forma;
+
+	stmt = LaunchQuery("INSERT INTO COMPRA(ID_FARMACIA, FECHA)  VALUES (" + std::to_string(id_farmacia) + ", '" + std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + ");");
+
+	cantidad_antigua = GetCantidadMedFarm(id_farmacia, CN);
+
+	cantidad = cantidad_antigua - cantidad_vendida;
+
+	ActualizarMedFarmVenta(id_farmacia, CN, cantidad);
+
+	return;
+}
+
+void CDBManager::ActualizarMedFarmCompra(int id_farmacia, float CN, int cantidad)
+{
+	stmt = LaunchQuery("UPDATE MEDFARM SET CANTIDAD = " + std::to_string(cantidad) + "WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ", CN = " + std::to_string(CN) + ";");
 
 	return;
 }
 
 
 
-//void CDBManager::ActualizarVenta(int id_farmacia, int cantidad, CDateTime* fecha, int id_venta, float CN)				//Nos permite editar una venta
+
+
+
+
+
+//void CDBManager::BorrarCompra(int id_compra)				//Nos permite borrar una compra del sistema
 //{
-//	SQLHSTMT stmt = LaunchQuery("UPDATE VENTA SET CANTIDAD = " + std::to_string(cantidad) + " , FECHA = " + std::to_string(fecha) + " ,ID_FARMACIA = " + std::to_string(id_farmacia) + ",CN = " + std::to_string(CN) + " WHERE ID_VENTA = " + std::to_string(id_venta) + ";");
+//	SQLHSTMT stmt = LaunchQuery("DELETE FROM COMPRA WHERE ID_COMPRA = " + std::to_string(id_compra) + ";");
 //
 //	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
 //
 //	return;
 //}
-
-
-
-
-//void CDBManager::NuevaCompra(int id_farmacia, int cantidad, CDateTime* fecha, float precio, int id_compra, float CN)				//Nos permite introducir una nueva compra en el sistema
-//{
-//	SQLHSTMT stmt = LaunchQuery("INSERT INTO COMPRA(ID_FARMACIA, CANTIDAD, FECHA, PRECIO, ID_COMPRA, CN)  VALUES (" + std::to_string(id_farmacia) + "," + std::to_string(cantidad) + "," + std::to_string(fecha) + "," + std::to_string(precio) + "," + std::to_string(id_compra) + "," + std::to_string(CN) + ");");
-//
-//	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-//
-//	return;
-//}
-
-
-void CDBManager::BorrarCompra(int id_compra)				//Nos permite borrar una compra del sistema
-{
-	SQLHSTMT stmt = LaunchQuery("DELETE FROM COMPRA WHERE ID_COMPRA = " + std::to_string(id_compra) + ";");
-
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
 
 
 //void CDBManager::ActualizarCompra(int id_farmacia, int cantidad, CDateTime* fecha, float precio, int id_compra, float CN)				//Nos permite editar una compra
@@ -257,55 +330,48 @@ void CDBManager::BorrarCompra(int id_compra)				//Nos permite borrar una compra 
 //}
 
 
-void CDBManager::NuevoMedicamento(float CN)				//Nos permite introducir un nuevo medicamento en stock
-{
-	SQLHSTMT stmt = LaunchQuery("INSERT INTO MEDICAMENTO(CN)  VALUES (" + std::to_string(CN) + ");");
+//void CDBManager::NuevoMedicamento(float CN)				//Nos permite introducir un nuevo medicamento en stock
+//{
+//	SQLHSTMT stmt = LaunchQuery("INSERT INTO MEDICAMENTO(CN)  VALUES (" + std::to_string(CN) + ");");
+//
+//	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
+//
+//	return;
+//}
+//
+//
+//void CDBManager::BorrarMedicamento(float CN)				//Nos permite borrar un medicamento del sistema. Así si no se quiere tener más stock de un medicamento se evita que la inteligencia compre más cuando quede poco
+//{
+//	SQLHSTMT stmt = LaunchQuery("DELETE FROM MEDICAMENTO WHERE CN = " + std::to_string(CN) + ";");
+//
+//	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
+//
+//	return;
+//}
+//
+//
+//void CDBManager::NuevoProveedor(float id_proveedor, char* nombre)				//Nos permite introducir un nuevo medicamento en stock
+//{
+//	SQLHSTMT stmt = LaunchQuery("INSERT INTO PROVEEDOR(ID_PROVEEDOR, NOMBRE)  VALUES (" + std::to_string(id_proveedor) + "," + std::to_string(*nombre) + ");");
+//
+//	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
+//
+//	return;
+//}
+//
+//
+//
 
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
-
-
-void CDBManager::BorrarMedicamento(float CN)				//Nos permite borrar un medicamento del sistema. Así si no se quiere tener más stock de un medicamento se evita que la inteligencia compre más cuando quede poco
-{
-	SQLHSTMT stmt = LaunchQuery("DELETE FROM MEDICAMENTO WHERE CN = " + std::to_string(CN) + ";");
-
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
-
-
-void CDBManager::NuevoProveedor(float id_proveedor, char* nombre)				//Nos permite introducir un nuevo medicamento en stock
-{
-	SQLHSTMT stmt = LaunchQuery("INSERT INTO PROVEEDOR(ID_PROVEEDOR, NOMBRE)  VALUES (" + std::to_string(id_proveedor) + "," + std::to_string(*nombre) + ");");
-
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
-
-
-
-void CDBManager::BorrarProveedor(int id_proveedor)				//Nos permite borrar una compra del sistema
-{
-	SQLHSTMT stmt = LaunchQuery("DELETE FROM PROVEEDOR WHERE ID_PROVEEDOR = " + std::to_string(id_proveedor) + ";");
-
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
-
-
-void CDBManager::ActualizarProveedor(int id_proveedor, char* nombre)				//Nos permite editar una compra
-{
-	SQLHSTMT stmt = LaunchQuery("UPDATE PROVEEDOR SET ID_PROVEEDOR = " + std::to_string(id_proveedor) + " , NOMBRE = " + std::to_string(*nombre) + ";");
-
-	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-
-	return;
-}
+//
+//
+//void CDBManager::ActualizarProveedor(int id_proveedor, char* nombre)				//Nos permite editar una compra
+//{
+//	SQLHSTMT stmt = LaunchQuery("UPDATE PROVEEDOR SET ID_PROVEEDOR = " + std::to_string(id_proveedor) + " , NOMBRE = " + std::to_string(*nombre) + ";");
+//
+//	//IGUAL PODEMOS LEER LOS DATOS DE ESA VENTA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
+//
+//	return;
+//}
 
 //void getCurrentDate(void)
 //{

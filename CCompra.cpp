@@ -50,10 +50,6 @@ void CCompra::find_proveedor(list<CProveedor*> global_proveedores){
   }
 }
 
-int CCompra::get_id(void) { 
-  return this->m_i_id_compra;
-}
-
 
 ostream& operator<<(std::ostream& o, CCompra* compra){
     

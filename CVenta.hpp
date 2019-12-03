@@ -20,6 +20,11 @@ class CVenta{
     CVenta();
     CVenta(CMedicamento* med,int cantidad,CFarmacia* farmacia);
     ~CVenta();
+
+	CMedicamento* getMedicamento(void) { return m_med_vendido; };
+	CDateTime* getFecha(void) { return m_fecha; };
+	CFarmacia* getFarmacia(void) { return m_farmacia; };
+	int getCantidad(void) { return m_cantidad; };
 };
 
 #endif

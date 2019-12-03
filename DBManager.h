@@ -26,20 +26,23 @@ public:
 	CDBManager();
 	~CDBManager();
 	CFarmacia* GetFarmacia(int id_farmacia);
-	std::list<CFarmacia*> GetGrupoFarmacias();
 	std::list<CMedicamento*> GetListaMedicamentos(int id_farmacia);
+	std::list<CFarmacia*> GetListaFarmacias();
 	std::list<CMedFarm*> GetMedFarm(int id_farmacia);
+	std::list<CProveedor*> GetListaProveedores();
+	std::list<CMedProv*> GetMedProv(int id_proveedor);
 	void NuevaVenta(CVenta* venta);
+	int  GetCantidadMedFarm(int id_farmacia, float CN);
+	void ActualizarMedFarmVenta(int id_farmacia, float CN, int cantidad_vendida); //Si no existe ese medicamento en la farmacia o no quedan suficientes, imprimir por pantalla y pedir otra venta
 	void BorrarVenta(int id_venta);
-	void ActualizarVenta(int id_farmacia, int cantidad, CDateTime* fecha, int id_venta, float CN);
-	void NuevaCompra(int id_farmacia, int cantidad, int year, int month, int day, int hour, int minutes, int seconds, float precio, int id_compra, float CN);
-	void BorrarCompra(int id_compra);
+	void BorrarProveedor(int id_proveedor);
+	void NuevaCompra(CCompra* compra);
+	/*void BorrarCompra(int id_compra);
 	void ActualizarCompra(int id_farmacia, int cantidad, CDateTime* fecha, float precio, int id_compra, float CN);
 	void NuevoMedicamento(float CN);
 	void BorrarMedicamento(float CN);
 	void NuevoProveedor(float id_proveedor, char* nombre);
-	void ActualizarProveedor(int id_proveedor, char* nombre);
-	void BorrarProveedor(int id_proveedor);
+	void ActualizarProveedor(int id_proveedor, char* nombre);*/
 private:
 	SQLHSTMT LaunchQuery(std::string query);
 	SQLHENV env;
