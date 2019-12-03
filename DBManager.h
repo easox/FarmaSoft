@@ -34,9 +34,13 @@ public:
 	void NuevaVenta(CVenta* venta);
 	int  GetCantidadMedFarm(int id_farmacia, float CN);
 	void ActualizarMedFarmVenta(int id_farmacia, float CN, int cantidad_vendida); //Si no existe ese medicamento en la farmacia o no quedan suficientes, imprimir por pantalla y pedir otra venta
-	void BorrarVenta(int id_venta);
+	void BorrarUltimaVenta();
 	void BorrarProveedor(int id_proveedor);
+	//void BorrarFarmacia(int id_farmacia);
 	void NuevaCompra(CCompra* compra);
+	void ActualizarMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio);
+	void NuevaMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio);
+
 	/*void BorrarCompra(int id_compra);
 	void ActualizarCompra(int id_farmacia, int cantidad, CDateTime* fecha, float precio, int id_compra, float CN);
 	void NuevoMedicamento(float CN);

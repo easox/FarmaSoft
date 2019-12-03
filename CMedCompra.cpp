@@ -25,6 +25,15 @@ CMedicamento* CMedCompra::get_med(void){
 float CMedCompra::get_price(void){
   return m_f_price;
 };
+
+int CMedCompra::get_cantidad() {
+	return this->m_i_cantidad;
+}
+
+CProveedor* CMedCompra::get_proveedor() {
+	return this->m_proveedor;
+}
+
 void CMedCompra::update_price(float price){
   m_f_price=price;
 };
@@ -32,6 +41,3 @@ void CMedCompra::update_proveedor(CProveedor* proveedor){
   m_proveedor=proveedor;
 };
 
-int CMedCompra::get_cantidad(){
-    return this->m_i_cantidad;
-}

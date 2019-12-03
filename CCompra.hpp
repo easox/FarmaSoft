@@ -23,7 +23,7 @@ class CCompra {
 
 	public:
 		CCompra(){};
-		CCompra(CFarmacia* to_farmacia,list<CMedCompra*>);
+		CCompra(CFarmacia* to_farmacia);
 		CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed);
 		~CCompra();
 

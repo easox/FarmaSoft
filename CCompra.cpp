@@ -1,8 +1,6 @@
 #include "CCompra.hpp"
 #include "CFarmacia.hpp"
-CCompra::CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
-			
-  m_i_id_compra=id_compra;
+CCompra::CCompra(CFarmacia* to_farmacia) {
   m_farmacia=to_farmacia;
   m_meds.clear(); //limpiar la lista de meds comprados
   m_fecha=new CDateTime(time(0)); //set fecha to now
@@ -10,7 +8,6 @@ CCompra::CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
 };
 
 CCompra::CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
-  m_i_id_compra=0;
   m_farmacia=to_farmacia;
   m_meds=med_needed;
   m_fecha=new CDateTime(time(0)); //set fecha to now
