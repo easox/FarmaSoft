@@ -15,15 +15,21 @@ CProveedor::CProveedor(int m_i_id_proveedor, string m_s_nombre, list <CMedProv*>
 }
 
 
-ostream& operator<<(std::ostream& o, CProveedor* proveedor) {
-    o << "Proveedor: "<<proveedor->get_name();
-	return o;
+ostream& operator<<(std::ostream& os, CProveedor* proveedor) {
+    os << "PROVEEDOR:" << proveedor->m_i_id_proveedor << endl;
+	list<CMedProv*>::iterator it_meds;
+
+	for (it_meds = proveedor->m_listmed.begin(); it_meds != proveedor->m_listmed.end(); ++it_meds) {
+		os << "       MED:" << (*it_meds)->get_medicamento()->get_cn() << "  PRECIO:" << (*it_meds)->get_price() << endl;
+	}
+
+	return os;
 }
 
 
-istream& operator>>(istream& i, CProveedor& proveedor) {
+istream& operator>>(istream& i, CProveedor* proveedor) {
 	char mensaje[20];
-	i >> mensaje >> proveedor.m_i_id_proveedor >> mensaje >> proveedor.m_s_nombre >> mensaje;
+	i >> mensaje >> proveedor->m_i_id_proveedor >> mensaje >> proveedor->m_s_nombre >> mensaje;
 	return i;
 }
 

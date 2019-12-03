@@ -2,7 +2,7 @@
 #include "CFarmacia.hpp"
 
 CCompra::CCompra(CFarmacia* to_farmacia) {
-			
+   
   
   m_farmacia=to_farmacia;
   m_meds.clear(); //limpiar la lista de meds comprados
