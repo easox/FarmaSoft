@@ -30,7 +30,7 @@ class CCompra {
 
 		void find_proveedor(list<CProveedor*> global_proveedores);
 		int get_id(void);
-        friend ostream& operator<<(std::ostream& o, CCompra* compra);
+    friend ostream& operator<<(std::ostream& o, CCompra* compra);
 
 };
 
