@@ -1,8 +1,9 @@
 #include "CCompra.hpp"
 #include "CFarmacia.hpp"
-CCompra::CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
+
+CCompra::CCompra(CFarmacia* to_farmacia) {
 			
-  m_i_id_compra=id_compra;
+  
   m_farmacia=to_farmacia;
   m_meds.clear(); //limpiar la lista de meds comprados
   m_fecha=new CDateTime(time(0)); //set fecha to now
@@ -10,7 +11,7 @@ CCompra::CCompra(int id_compra, CFarmacia* to_farmacia,list<CMedCompra*>) {
 };
 
 CCompra::CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
-  m_i_id_compra=0;
+  
   m_farmacia=to_farmacia;
   m_meds=med_needed;
   m_fecha=new CDateTime(time(0)); //set fecha to now
@@ -47,9 +48,7 @@ void CCompra::find_proveedor(list<CProveedor*> global_proveedores){
   }
 }
 
-int CCompra::get_id(void) { 
-  return this->m_i_id_compra;
-}
+
 
 
 ostream& operator<<(std::ostream& o, CCompra* compra){
