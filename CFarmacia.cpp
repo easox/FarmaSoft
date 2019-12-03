@@ -61,10 +61,6 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
     return 0;
 };
 
-int CFarmacia::get_ID(){
-    return this->m_i_id_farmacia;
-}
-
 ostream& operator<<(std::ostream& os, CFarmacia* farmacia){
     
     os<<"ID FARMACIA:"<<farmacia->m_i_id_farmacia<<endl;

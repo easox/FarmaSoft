@@ -19,7 +19,7 @@ private:
 public:
 	CProveedor(void);
 	CProveedor(const CProveedor& proveedor);
-	CProveedor(int m_i_id_proveedor, std::string m_s_nombre, list <CMedProv*> l_medprov);
+	CProveedor(int m_i_id_proveedor, std::string m_s_nombre, list<CMedProv*> l_medprov);
     
 
 	friend std::ostream& operator<<(std::ostream& os, const CProveedor& proveedor);
