@@ -6,7 +6,7 @@
 #include <list>
 #include <string>
 #include <ctype.h>
-#include <unistd.h>
+#include <windows.h>
 
 #include "CFarmacia.hpp"
 #include "CCompra.hpp"
@@ -36,27 +36,29 @@ using namespace std;
 
 int main(void){
 
+	system("COLOR F1");
+
 	ClearScreen();
 	empty_jeringe();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe1();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe2();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe3();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe4();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe5();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe6();
-	usleep(1000000);
+	Sleep(1000);
 	ClearScreen();
 	jeringe7();
 
@@ -82,7 +84,6 @@ int main(void){
             ClearScreen();
           
             //MENU OPTIONS
-			system("COLOR F1");
 			jeringe7();
 
 			cout << "  8888888888     d8888 8888888b.  888b     d888        d8888  .d8888b.   .d88888b.  8888888888 88888888888 " << endl;
