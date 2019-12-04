@@ -1,5 +1,6 @@
 #include "CProveedor.hpp"
 using namespace std;
+#include <iomanip>
 
 //Clase CProveedor.cpp
 
@@ -20,7 +21,7 @@ ostream& operator<<(std::ostream& os, CProveedor* proveedor) {
 	list<CMedProv*>::iterator it_meds;
 
 	for (it_meds = proveedor->m_listmed.begin(); it_meds != proveedor->m_listmed.end(); ++it_meds) {
-		os << "       MED:" << (*it_meds)->get_medicamento()->get_cn() << "  PRECIO:" << (*it_meds)->get_price() << endl;
+		os << "       MED:" << std::fixed << setprecision(1) << (*it_meds)->get_medicamento()->get_cn() << "  PRECIO:" << (*it_meds)->get_price() << endl;
 	}
 
 	return os;
@@ -38,8 +39,8 @@ CProveedor::~CProveedor() {
 	
   while(!m_listmed.empty()){
     it=m_listmed.begin();
+	delete* it;
     m_listmed.pop_front();
-    delete *it;
   }
 
 };

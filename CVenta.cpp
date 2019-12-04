@@ -18,5 +18,4 @@ CVenta::CVenta(CMedicamento* med,int cantidad,CFarmacia* farmacia){
 
 CVenta::~CVenta(){
   delete m_fecha;
-
 };

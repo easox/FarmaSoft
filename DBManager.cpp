@@ -8,6 +8,8 @@
 #include <ctime>
 #include <list>
 
+#include<iomanip>
+
 using namespace std;
 
 // CONECTAR CON MYSQL
@@ -248,7 +250,7 @@ void CDBManager::NuevaVenta(CVenta* venta)				//Crea una nueva venta
 	CFarmacia* farmacia = venta->getFarmacia();
 	int id_farmacia = farmacia->get_ID();
 
-	int cantidad_antigua;
+	int cantidad_antigua=NULL;
 	int cantidad;
 
 
@@ -269,9 +271,13 @@ int CDBManager::GetCantidadMedFarm(int id_farmacia, float CN)			//Devuelve una l
 {
 	HSTMT stmt1 = stmt;
 
-	stmt = LaunchQuery("SELECT CANTIDAD FROM MEDFARM WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ", CN = " + std::to_string(CN) + ";");
+	int cnnew = (int)(CN * 10);
+
+	stmt = LaunchQuery("SELECT CANTIDAD FROM MEDFARM WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + " AND CN = " + std::to_string(cnnew) + "/10;");
 	
-	SQLINTEGER indicator, cantidad;
+	SQLINTEGER indicator;
+	SQLINTEGER cantidad=NULL;
+
 
 	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
 	{
@@ -287,7 +293,8 @@ void CDBManager::ActualizarMedFarmVenta(int id_farmacia, float CN, int cantidad)
 {
 	HSTMT stmt1 = stmt;
 
-	stmt = LaunchQuery("UPDATE MEDFARM SET CANTIDAD = " + std::to_string(cantidad) + "WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + ", CN = " + std::to_string(CN) + ";");
+	int cnew = (int)(CN * 10);
+	stmt = LaunchQuery("UPDATE MEDFARM SET CANTIDAD = " + std::to_string(cantidad) + " WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + " AND CN = " + std::to_string(cnew) + "/10;");
 
 	stmt = stmt1;
 
@@ -340,6 +347,36 @@ void CDBManager::BorrarProveedor(int id_proveedor)				//Nos permite borrar una c
 	return;
 }
 
+int CDBManager::NuevoProveedor(string nombre)				//Nos permite introducir un nuevo medicamento en stock
+{
+	HSTMT stmt1 = stmt;
+
+	stmt = LaunchQuery("INSERT INTO PROVEEDOR(NOMBRE)  VALUES ('" + nombre + "');");
+	stmt = LaunchQuery("SELECT ID_PROVEEDOR FROM PROVEEDOR WHERE NOMBRE = '" + nombre + "';");
+
+	SQLINTEGER indicator, id_proveedor;
+
+	while ((ret = SQLFetch(stmt)) == SQL_SUCCESS)
+	{
+		ret = SQLGetData(stmt, 1, SQL_C_LONG, &id_proveedor, 0, &indicator);
+	}
+
+	stmt = stmt1;
+
+	return id_proveedor;
+}
+
+void CDBManager::InsertMedProv(int id_proveedor,float CN, int precio)
+{
+	HSTMT stmt1 = stmt;
+
+	stmt = LaunchQuery("INSERT INTO MEDPROV(ID_PROVEEDOR,CN,PRECIO) VALUES(" + to_string(id_proveedor) + "," + to_string((int)(CN * 10)) + "/10," + to_string(precio) + ");");
+	
+	stmt = stmt1;
+
+	return;
+}
+
 //void CDBManager::BorrarFarmacia(int id_farmacia)				//Nos permite borrar una compra del sistema
 //{
 //	HSTMT stmt1 = stmt;
@@ -376,7 +413,7 @@ void CDBManager::NuevaCompra(CCompra* compra)				//Nos permite introducir una nu
 
 	stmt = LaunchQuery("INSERT INTO COMPRA(ID_FARMACIA, FECHA)  VALUES (" + std::to_string(id_farmacia) + ", '" + std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + "');");
 
-	stmt = LaunchQuery("SELECT ID_COMPRA FROM COMPRA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + "AND FECHA = '" + std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + "';");
+	stmt = LaunchQuery("SELECT ID_COMPRA FROM COMPRA WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + " AND FECHA = '" + std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(day) + "' ORDER BY ID_COMPRA DESC LIMIT 1;");
 
 	SQLINTEGER indicator, id_compra;
 
@@ -389,29 +426,29 @@ void CDBManager::NuevaCompra(CCompra* compra)				//Nos permite introducir una nu
 	list<CMedCompra*>::iterator it_medcompras;
 	for (it_medcompras = medcompras.begin(); it_medcompras != medcompras.end(); ++it_medcompras)
 	{
-		cantidad_antigua = NULL;
+		cantidad_antigua = 0;
 
 		CMedicamento* med = (*it_medcompras)->get_med();
 		float CN = med->get_cn();
 		int cantidad_comprada = (*it_medcompras)->get_cantidad();
 		float precio = (*it_medcompras)->get_price();
 		CProveedor* prov = (*it_medcompras)->get_proveedor();
-		int id_proveedor = prov->get_id_proveedor();
-
-		// Actualizar MedFarm con nueva cantidad de medicamentos
-		cantidad_antigua = GetCantidadMedFarm(id_farmacia, CN);
-
-		if (cantidad_antigua == NULL)
+		
+		if (prov == NULL)
 		{
-			//Hacer nueva fila en MedCompra
-			NuevaMedFarmCompra(id_farmacia, CN, cantidad, id_proveedor, precio);
+			cout << "Ningun proveedor ofrece este medicamento: " << std::fixed << setprecision(1) << CN << endl;
 		}
 		else
 		{
-			//Actualizar cantidad de ese medicamento en MedCompra
+			int id_proveedor = prov->get_id_proveedor();
+			// Actualizar MedFarm con nueva cantidad de medicamentos
+			cantidad_antigua = GetCantidadMedFarm(id_farmacia, CN);
+
 			cantidad = cantidad_antigua + cantidad_comprada;
-			ActualizarMedFarmCompra(id_farmacia, CN, cantidad, id_proveedor, precio);
+			ActualizarMedFarmCompra(id_farmacia, id_compra, CN, cantidad, id_proveedor, precio);
+			
 		}
+		
 		
 	}	
 
@@ -420,22 +457,25 @@ void CDBManager::NuevaCompra(CCompra* compra)				//Nos permite introducir una nu
 	return;
 }
 
-void CDBManager::ActualizarMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio)
+void CDBManager::ActualizarMedFarmCompra(int id_farmacia, int id_compra, float CN, int cantidad, int id_proveedor, float precio)
 {
 	HSTMT stmt1 = stmt;
 
-	stmt = LaunchQuery("UPDATE MEDCOMPRA SET CANTIDAD = " + std::to_string(cantidad) + "WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + " AND CN = " + std::to_string(CN) + " AND ID_PROVEEDOR = " + std::to_string(id_proveedor) + " AND PRECIO = " + std::to_string(precio) + ";");
+	stmt = LaunchQuery("INSERT INTO MEDCOMPRA VALUES(CANTIDAD, ID_COMPRA, CN, ID_PROVEEDOR, PRECIO) VALUES(" + std::to_string(cantidad) + "," + std::to_string(id_compra) + "," + std::to_string((int)(CN*10)) + "/10," + std::to_string(id_proveedor) + "," + std::to_string(precio) + ");");
+	int cnew = (int)(CN * 10);
+	stmt = LaunchQuery("UPDATE MEDFARM SET CANTIDAD = " + std::to_string(cantidad) + " WHERE ID_FARMACIA = " + std::to_string(id_farmacia) + " AND CN = " + std::to_string(cnew) + "/10;");
 
 	stmt = stmt1;
 
 	return;
 }
 
-void CDBManager::NuevaMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio)
+void CDBManager::NuevaMedFarmCompra(int id_farmacia, int id_compra, float CN, int cantidad, int id_proveedor, float precio)
 {
 	HSTMT stmt1 = stmt;
 
-	stmt = LaunchQuery("INSERT INTO MEDCOMPRA(ID_FARMACIA,CN,CANTIDAD,ID_PROVEEDOR,PRECIO) VALUES(" + std::to_string(id_farmacia) + ", " + std::to_string(CN) + ", " + std::to_string(cantidad) + ",  " + std::to_string(id_proveedor) + ", " + std::to_string(precio) + ");");
+	stmt = LaunchQuery("INSERT INTO MEDCOMPRA(ID_COMPRA,CN,CANTIDAD,ID_PROVEEDOR,PRECIO) VALUES(" + std::to_string(id_compra) + ", " + std::to_string(CN) + ", " + std::to_string(cantidad) + ",  " + std::to_string(id_proveedor) + ", " + std::to_string(precio) + ");");
+	stmt = LaunchQuery("INSERT INTO	MEDFARM(ID_FARMACIA,CN,CANTIDAD,CANTIDAD_MAX,CANTIDAD_MIN) VALUES(" + std::to_string(id_farmacia) + ", " + std::to_string(CN) + ", " + std::to_string(cantidad) + ",1000,0);");
 
 	stmt = stmt1;
 
@@ -489,13 +529,7 @@ void CDBManager::NuevaMedFarmCompra(int id_farmacia, float CN, int cantidad, int
 //}
 //
 //
-//void CDBManager::NuevoProveedor(float id_proveedor, char* nombre)				//Nos permite introducir un nuevo medicamento en stock
-//{
-//	SQLHSTMT stmt = LaunchQuery("INSERT INTO PROVEEDOR(ID_PROVEEDOR, NOMBRE)  VALUES (" + std::to_string(id_proveedor) + "," + std::to_string(*nombre) + ");");
-//
-//	//IGUAL PODEMOS LEER LOS DATOS DE ESA COMPRA E IMPRIMIRLOS POR PANTALLA PARA QUE EL USUARIO COMPRUEBE QUE HA METIDO BIEN LOS DATOS?
-//
-//	return;
+
 //}
 //
 //

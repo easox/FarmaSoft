@@ -8,7 +8,7 @@ CMedicamento::CMedicamento(const CMedicamento& medicamento) {
 	this->m_i_cn = medicamento.m_i_cn;
 
 }
-CMedicamento::CMedicamento(int m_i_cn) {
+CMedicamento::CMedicamento(float m_i_cn) {
 	this->m_i_cn = m_i_cn;
 }
 
@@ -28,6 +28,6 @@ CMedicamento::~CMedicamento(void) {
 }
 
 
-int CMedicamento::get_cn(void) {
-	return this->m_i_cn;;
+float CMedicamento::get_cn(void) {
+	return m_i_cn;
 }

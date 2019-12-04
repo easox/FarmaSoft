@@ -27,7 +27,7 @@ CTransport::~CTransport() {
 
 	while (!m_medicamentos.empty()) {
 		it = m_medicamentos.begin();
-		m_medicamentos.pop_front();
 		delete* it;
+		m_medicamentos.pop_front();
 	}
 }

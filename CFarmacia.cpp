@@ -1,5 +1,6 @@
 #include "CFarmacia.hpp"
 #include "CCompra.hpp"
+#include <iomanip>
 
 CFarmacia::CFarmacia(){
       m_i_id_farmacia=0;
@@ -18,8 +19,8 @@ CFarmacia::~CFarmacia(){
   list<CMedFarm*>::iterator it;
   while(!m_medicamentos.empty()){
     it=m_medicamentos.begin();
+	delete* it;
     m_medicamentos.pop_front();
-    delete *it;
   }
   
 }
@@ -48,7 +49,7 @@ CCompra* CFarmacia::determine_compra(){
       
 };
 
-CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
+CVenta* CFarmacia::make_venta(float id_med,int cantidad_venta){
   list<CMedFarm*>::iterator it_meds;
 
   for(it_meds=m_medicamentos.begin();it_meds != m_medicamentos.end();++it_meds){
@@ -63,7 +64,6 @@ CVenta* CFarmacia::make_venta(int id_med,int cantidad_venta){
       
     }
   }
-    cout<<"Venta no válida"<<endl;
     return NULL;
 };
 
@@ -77,7 +77,7 @@ ostream& operator<<(std::ostream& os, CFarmacia* farmacia){
     list<CMedFarm*>::iterator it_meds;
     
     for(it_meds=farmacia->m_medicamentos.begin();it_meds != farmacia->m_medicamentos.end();++it_meds){
-        os<<"       MED:"<<(*it_meds)->get_med()->get_cn()<<"  cantidad:"<<(*it_meds)->get_cantidad()<<endl;
+        os<<"       MED:"<<std::fixed<<setprecision(1)<<(*it_meds)->get_med()->get_cn()<<"  cantidad:"<<(*it_meds)->get_cantidad()<<endl;
     }
     
     return os;

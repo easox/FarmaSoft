@@ -27,7 +27,7 @@ public:
 	~CProveedor();
     
     string get_name();
-  int get_id();
+	int get_id();
 	int get_id_proveedor(void) { return m_i_id_proveedor; };
 	float get_price(CMedicamento* med); //indica el precio de un medicamento en su inventario, devuelve 99999 si no lo tiene
 	int med_available(CMedicamento* med); // indica si tiene ese medicamento en su inventario. Devuelve 1 si hay y 0 si no

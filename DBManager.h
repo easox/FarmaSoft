@@ -36,16 +36,17 @@ public:
 	void ActualizarMedFarmVenta(int id_farmacia, float CN, int cantidad_vendida); //Si no existe ese medicamento en la farmacia o no quedan suficientes, imprimir por pantalla y pedir otra venta
 	void BorrarUltimaVenta();
 	void BorrarProveedor(int id_proveedor);
-	//void BorrarFarmacia(int id_farmacia);
+	int NuevoProveedor(string nombre);
+	void InsertMedProv(int id_proveedor, float CN, int precio);
 	void NuevaCompra(CCompra* compra);
-	void ActualizarMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio);
-	void NuevaMedFarmCompra(int id_farmacia, float CN, int cantidad, int id_proveedor, float precio);
+	void ActualizarMedFarmCompra(int id_farmacia, int id_compra, float CN, int cantidad, int id_proveedor, float precio);
+	void NuevaMedFarmCompra(int id_farmacia, int id_compra, float CN, int cantidad, int id_proveedor, float precio);
 
+	//void BorrarFarmacia(int id_farmacia);
 	/*void BorrarCompra(int id_compra);
 	void ActualizarCompra(int id_farmacia, int cantidad, CDateTime* fecha, float precio, int id_compra, float CN);
 	void NuevoMedicamento(float CN);
 	void BorrarMedicamento(float CN);
-	void NuevoProveedor(float id_proveedor, char* nombre);
 	void ActualizarProveedor(int id_proveedor, char* nombre);*/
 private:
 	SQLHSTMT LaunchQuery(std::string query);

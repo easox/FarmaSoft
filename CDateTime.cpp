@@ -5,7 +5,7 @@ using namespace std;
 
 int CDateTime::getYear(){
   tm* tim=localtime(&(this->time));
-  return tim->tm_year;
+  return (tim->tm_year)+1900;
 
 }
 
@@ -15,7 +15,7 @@ time_t CDateTime::getTime_t(){
 }
 int CDateTime::getMonth(){
   tm* tim=localtime(&(this->time));
-  return tim->tm_mon;
+  return (tim->tm_mon)+1;
 
 }
 int CDateTime::getDay(){

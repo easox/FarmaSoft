@@ -1,5 +1,6 @@
 #include "CCompra.hpp"
 #include "CFarmacia.hpp"
+#include <iomanip>
 
 CCompra::CCompra(CFarmacia* to_farmacia) {
    
@@ -19,12 +20,12 @@ CCompra::CCompra(CFarmacia* to_farmacia,list<CMedCompra*> med_needed){
 
 CCompra::~CCompra(){
   delete m_fecha;
-
+  
   list<CMedCompra*>::iterator it;
   while(!m_meds.empty()){
     it=m_meds.begin();
-    m_meds.pop_front();
     delete *it;
+	m_meds.pop_front();
   }
 }
 
@@ -59,9 +60,12 @@ ostream& operator<<(std::ostream& o, CCompra* compra){
     compra->m_meds.begin();
     
     for(it_meds=compra->m_meds.begin();it_meds != compra->m_meds.end();++it_meds){
-        o<<"       Compra MED con ID:"<<(*it_meds)->get_med()->get_cn()<<endl<<
-        "          Cantidad comprada:"<<(*it_meds)->get_cantidad()<<endl<<
-        "          Precio: "<<(*it_meds)->get_price()<<endl;
+		if ((*it_meds)->get_price() != 100000.0)
+		{
+			o << "       Compra MED con ID:" << std::fixed << setprecision(1) << (*it_meds)->get_med()->get_cn() << endl <<
+				"          Cantidad comprada:" << std::fixed << setprecision(1) << (*it_meds)->get_cantidad() << endl <<
+				"          Precio: " << (*it_meds)->get_price() << endl;
+		}
     }
     return o;
 }
